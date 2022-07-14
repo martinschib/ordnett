@@ -67,7 +67,6 @@
     {#each $pattern as value, i}
       {#if $pattern.length > 1 && i >= 1}
         <line
-          stroke-dasharray="10, 5"
           x1={getSirclePosition($pattern[i - 1]).x}
           y1={getSirclePosition($pattern[i - 1]).y}
           x2={getSirclePosition($pattern[i]).x}
@@ -106,15 +105,15 @@
   }
 
   .lines {
-    stroke:rgb(36, 38, 97);
-    stroke-width:10;
-    stroke-width: 6px;
+    stroke:rgb(38, 176, 42);
+    stroke-width: 4px;
   } 
 
   .container {
     position: relative;
     align-content: center;
     display: inline-block;
+    width: 350px;
 
   }
   .items {
@@ -146,9 +145,7 @@
   }
 
   .sircle.on {
-    color: white;
-    background-color: rgb(139, 205, 89);
-    border: 1px solid rgb(194, 194, 194);
+    border: 3px solid rgb(0, 0, 0);
   }
 
   .sircle {
@@ -161,7 +158,7 @@
     height: 80px;
     border-radius: 40px;
     touch-action: manipulation;
-
+    color: black;
 
     font-weight: bold;
 
@@ -170,7 +167,8 @@
     -moz-box-shadow: -2px 12px 16px -13px rgba(0, 0, 0, 0.24);
   }
 
+
   .sircle:hover {
-    border: 2px dashed black;
+    border: 2px solid brgb(70, 147, 136)
   }
 </style>

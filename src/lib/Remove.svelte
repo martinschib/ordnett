@@ -33,23 +33,28 @@
 <button class="check" on:click={() => handleRemove()}>Fjern </button>
 
 <style>
-  .check {
+ .check {
     border: none;
     padding: 15px 32px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+
+    border: 1px solid rgb(161, 161, 161);
     margin: 4px 2px;
     cursor: pointer;
-    background-color: #e7e7e7;
+    background-color: #ffffff;
     color: black;
-    border-radius: 5px;
     touch-action: manipulation;
+    border-radius: 25px;
 
+    font-weight: 600;
   }
 
   .check:active {
-    background-color: #c5c3c3;
+    border: 2px solid black;
   }
 </style>

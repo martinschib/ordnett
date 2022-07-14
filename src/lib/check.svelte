@@ -4,38 +4,50 @@
   import { ordnett } from "../stores/ordnett";
   import { word } from "../stores/word";
   import { gameMessage } from "../stores/gameMessage";
-  import { checkWord } from "../api/api";
+  import { calculateWordPoints, isValidWord } from "../api/api";
+  import { retriveData, storeData } from "../api/localstorage";
 
-  async function handleCheck() {
-    const newWord = $pattern.map((value) => $ordnett[value]).join("");
-
-    if (newWord.length <= 1) {
+  export async function handleCheck() {
+    if ($word.length <= 1) {
       gameMessage.newMessage("Trykk på bokstavene for å lage ord", "blue");
       return;
     }
-    if (newWord.length <= 3) {
-      gameMessage.newMessage("Ordet er for kort", "black");
+
+    for (const letter of $word) {
+      if (!$ordnett.includes(letter)) {
+        gameMessage.newMessage(
+          "Ordet inneholder bokstaver som ikke er i nettet",
+          "red"
+        );
+        return;
+      }
+    }
+
+    if ($word.length <= 3) {
+      gameMessage.newMessage("Ordet er for kort", "red");
       return;
     }
 
-    let response = await checkWord(newWord);
-    if (!response) {
-      gameMessage.newMessage("Ops! Her har det skjedd noe galt..", "red");
-      return;
-    }
-
-    if (!response.leaderBoard) {
-      gameMessage.newMessage(response.message, "blue");
-      word.reset();
+    let isValid = await isValidWord($word.join("").toLowerCase());
+    if (!isValid) {
       pattern.reset();
+      word.reset();
       return;
     }
-    if (response.user_id) {
-      document.cookie = `ordnett_userid=${response.user_id}`;
-    }
-    game.addWord(newWord);
-    game.update({score: response.score, leaderboard: response.leaderBoard, numPlayers: response.num_players})
-    gameMessage.newMessage(response.message, "green");
+
+    game.update({
+      score: $game.score + calculateWordPoints($word.join("")),
+      words: [...$game.words, $word],
+    });
+    storeData("my_words", [
+      ...retriveData("my_words"),
+      $word.join("").toLowerCase(),
+    ]);
+
+    gameMessage.newMessage(
+      `Bra jobba +${calculateWordPoints($word.join(""))} poeng!`,
+      "green"
+    );
 
     word.reset();
     pattern.reset();
@@ -48,18 +60,25 @@
   .check {
     border: none;
     padding: 15px 32px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+
+    border: 1px solid rgb(50, 196, 50);
     margin: 4px 2px;
     cursor: pointer;
-    background-color: #e7e7e7;
+    background-color: #ffffff;
     color: black;
-    border-radius: 5px;
+
+    border-radius: 25px;
+
+    font-weight: 600;
   }
 
   .check:active {
-    background-color: #c5c3c3;
+    border: 2px solid black;
   }
 </style>

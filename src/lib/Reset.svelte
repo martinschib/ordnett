@@ -1,15 +1,33 @@
 <script>
-import { word } from "../stores/word";
+  import { word } from "../stores/word";
 
   import { pattern } from "../stores/pattern";
+  import { ordnett } from "../stores/ordnett";
+
+  const rotationLookup = {
+    0: 2,
+    1: 5,
+    2: 8,
+    3: 1,
+    4: 4,
+    5: 7,
+    6: 0,
+    7: 3,
+    8: 6,
+  };
 
   function handleReset() {
-    word.reset()
+    let newRotatedBoard = new Array(9).fill().map((v, i) => {
+      return $ordnett[rotationLookup[i]];
+    });
+    ordnett.set(newRotatedBoard.join(""));
+    word.reset();
     pattern.reset();
   }
 </script>
 
-<button class="reset" on:click={() => handleReset()}> <i class="fa fa-refresh" aria-hidden="true"></i>
+<button class="reset" on:click={() => handleReset()}>
+  <i class="fa fa-refresh" aria-hidden="true" />
 </button>
 
 <style>
@@ -26,7 +44,6 @@ import { word } from "../stores/word";
     color: black;
     border-radius: 5px;
     touch-action: manipulation;
-
   }
 
   .reset:active {
