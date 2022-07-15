@@ -51,6 +51,7 @@
 
     word.reset();
     pattern.reset();
+    parent.postMessage(`numWords:${$game.words.length}`, '*');
   }
 </script>
 

@@ -55,6 +55,9 @@ import { game } from "../stores/gameScore";
 
     word.reset();
     pattern.reset();
+
+    parent.postMessage(`numWords:${$game.words.length}`, '*');
+    
   }
 
   $: isLetterInNett = (letter: string) =>
