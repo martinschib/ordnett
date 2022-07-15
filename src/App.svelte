@@ -50,10 +50,6 @@
     rel="stylesheet"
     type="text/css"
   />
-  <link
-    href="https://cdn.aftenposten.no/ap/fonts/produkt/ProduktXXCond-Semibold.woff2"
-    rel="stylesheet"
-  />
 </svelte:head>
 <main>
   <Keyhandler />
@@ -104,27 +100,25 @@
     </div>
     <div name="howto" class="howto" style="grid-area: rules;">
       <h3>Hvordan spiller jeg?</h3>
-      <img class="image" src="/src/assets/rule_1.png" />
-      <h3>Finn så mange ordt du klarer i ordnettet!</h3>
+      <img alt="Spillets regler" class="image" src="/rule_1.png" />
+      <h3>Finn så mange ord du klarer i ordnettet!</h3>
       <p>Let etter ord i ordnettet.</p>
-      <p>Ordene må bestå av tre eller fler bokstaver.</p>
-      <p>
-        Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
-      </p>
-      <h3>TIPS</h3>
+      <p>En bokstav i nettet kan kun brukes en gang.</p>
+      <p>Ordene må bestå av fire eller fler bokstaver.</p>
+      <h3>TIPS:</h3>
       <ul>
-        <li>Gjort feil? bruk <b>Fjern</b></li>
+        <li>Gjort feil? Bruk <b>fjern</b> kanppen</li>
         <li>Vil du ha hint? Trykk på "💡"</li>
       </ul>
 
-      <p>Har du en tilbakemeldign? Send pss en mail på xxxx@x.xx.adocm</p>
+      <p>Har du en tilbakemeldign? Send en en mail til <a href="mailto:martin.clementz@schibsted.com">oss</a></p>
     </div>
   </div>
 </main>
 
 <style type="scss">
   @font-face {
-    font-family: "Product";
+    font-family: Product;
     src: url("./assets/ProduktXXCond-Semibold\ \(3\).woff2") format("woff");
   }
   :root {
@@ -133,7 +127,6 @@
   }
 
   h1,
-  h2,
   h3 {
     font-family: Product;
     letter-spacing: 1.5px;
@@ -159,15 +152,6 @@
         font-size: 45px;
       }
     }
-  }
-
-  .info {
-    line-height: 26px;
-    text-align: left;
-    max-width: 400px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
   }
 
   .content {

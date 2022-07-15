@@ -41,7 +41,7 @@ import { game } from "../stores/gameScore";
 
     game.update({
       score: $game.score + calculateWordPoints($word.join("")),
-      words: [...$game.words, $word],
+      words: [...$game.words, $word.join("").toLowerCase()],
     });
     storeData("my_words", [
       ...retriveData("my_words"),

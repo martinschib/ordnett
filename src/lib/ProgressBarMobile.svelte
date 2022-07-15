@@ -1,7 +1,7 @@
 <script>
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
-  import { game, gameScorePercentage, gameScorePercentageReal, gameTag } from "../stores/gameScore";
+  import { game, gameScorePercentage1, gameScorePercentageReal, gameTag, pointFunction } from "../stores/gameScore";
 
   const progress = tweened($game.score, {
     duration: 400,
@@ -17,17 +17,17 @@
 
 <div class="progress-bar-container">
   <div name="text" class="subgoaltext">
-    <p class="subgoal one">{Math.round(($game.maxScore / 100) * 15)}</p>
-    <p class="subgoal two">{Math.round(($game.maxScore / 100) * 40)}</p>
-    <p class="subgoal three">{Math.round(($game.maxScore / 100) * 57)}</p>
-    <p class="subgoal four">{Math.round(($game.maxScore / 100) * 80)}</p>
+    <p class="subgoal one">{pointFunction(0.15, $game.maxScore)}</p>
+    <p class="subgoal two">{pointFunction(0.4, $game.maxScore)}</p>
+    <p class="subgoal three">{pointFunction(0.6, $game.maxScore)}</p>
+    <p class="subgoal four">{pointFunction(0.8, $game.maxScore)}</p>
   </div>
-  <div class="progress-bar" style="--progress-width: {$gameScorePercentageReal}%;">
+  <div class="progress-bar" style="--progress-width: {$gameScorePercentage1}%;">
     <span class="progress" style="background-color: {$gameTag.color};" />
-    <span class="subgoal one" style="left: 15%; display: {15 > $gameScorePercentageReal ? "block": "none"};" />
-    <span class="subgoal two" style="left: 35%; display: {35 > $gameScorePercentageReal ? "block": "none"};" />
-    <span class="subgoal three" style="left: 57%; display: {57 > $gameScorePercentageReal ? "block": "none"};" />
-    <span class="subgoal four" style="left: 80%; display: {80 > $gameScorePercentageReal ? "block": "none"};" />
+    <span class="subgoal one" style="left: 15%; display: {pointFunction(0.15, $game.maxScore) > $game.score ? "block": "none"};" />
+    <span class="subgoal two" style="left: 35%; display: {pointFunction(0.4, $game.maxScore) > $game.score ? "block": "none"};" />
+    <span class="subgoal three" style="left: 57%; display: {pointFunction(0.6, $game.maxScore) > $game.score ? "block": "none"};" />
+    <span class="subgoal four" style="left: 80%; display: {pointFunction(0.8, $game.maxScore) > $game.score ? "block": "none"};" />
     <span class="maxScore"><p>{$game.maxScore}</p></span>
   </div>
 

@@ -70,7 +70,7 @@ const isValidWord = (newWord: string) => {
 };
 
 const retriveStartUpData = async () => {
-  const today = 12 ||getDayOfYear(new Date());
+  const today = getDayOfYear(new Date()) % 143
 
   const storedDay = retriveData("day");
 
@@ -87,21 +87,19 @@ const retriveStartUpData = async () => {
   }
 
   try {
-    const response = await fetch(`http://10.0.1.57:3001/api/wordnetts/${today % 14}`, {
-      method: "GET",
-    });
-
+    const response = await fetch(`/wordnetts.json`);
     const data = await response.json()
-
-    storeData("wordnett", data.wordnett)
-    storeData("max_score", data.maxScore)
-    storeData("max_words", data.maxWords)
-    storeData("solutions", data.solutions)
+    console.log(data[`${today}`])
+    storeData("wordnett", data[`${today}`].wordnett)
+    storeData("max_score", data[`${today}`].maxScore)
+    storeData("max_words", data[`${today}`].maxWords)
+    storeData("solutions", data[`${today}`].solutions)
     storeData("my_words", [])
     storeData("day", today);
 
     return {
-      ...data,
+      ...data[`${today}`],
+      maxScore: data[`${today}`].max_score,
       myWords: [],
     };
   } catch (e) {

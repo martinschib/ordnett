@@ -1,10 +1,41 @@
-<script>
+<script type="ts">
+  import { game } from "../../stores/gameScore";
+
+  let hint = "";
+
+  const getHint = () => {
+    let unusedWords = $game.solutions.filter((a) => !$game.words.includes(a))
+    let word = unusedWords[Math.floor(Math.random() * unusedWords.length)]
+
+    if (word.length >= 6) {
+      hint =
+        word[0] + word[1] + "*".repeat(word.length - 3) + word[word.length - 1];
+      return;
+    } else {
+      hint = word[0] + "*".repeat(word.length - 2) + word[word.length - 1];
+      return;
+    }
+  };
 </script>
 
-<button class="check"><i class="fa-regular fa-lightbulb fa-lg"></i></button>
+<span style="position: relative;">
+  <button on:click={() => getHint()} class="check"
+    ><i class="fa-regular fa-lightbulb fa-lg" /></button
+  >
+  {#if hint}
+    <p class="hint">Hint: {hint}</p>
+  {/if}
+</span>
 
 <style>
- .check {
+  .hint {
+    position: absolute;
+    font-weight: 600;
+    right: 0;
+    white-space: nowrap;
+  }
+
+  .check {
     border: none;
     padding: 6px;
     box-shadow: 0 2px 4px rgb(0 0 0 / 20%);

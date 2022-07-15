@@ -37,7 +37,7 @@
 
     game.update({
       score: $game.score + calculateWordPoints($word.join("")),
-      words: [...$game.words, $word],
+      words: [...$game.words, $word.join("")],
     });
     storeData("my_words", [
       ...retriveData("my_words"),

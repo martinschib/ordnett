@@ -42,9 +42,16 @@ function gameStore() {
 
 export const game = gameStore();
 
-export const gameScorePercentage = derived(
+
+export const pointFunction = (percentage: number, total: number) => {
+  console.log(total, percentage,  Math.round((Math.pow((-1*percentage), 2) + 2*percentage) * total))
+
+  return Math.round(Math.pow((percentage), 2) * total)
+}
+
+export const gameScorePercentage1 = derived(
   game,
-  ($game) => (-1* ($game.score / $game.maxScore)**2 + 2 * ($game.score / $game.maxScore))*100
+  ($game) => (0.9875184*($game.score / $game.maxScore)**0.465751)*100
 );
 
 export const gameScorePercentageReal = derived(
@@ -52,20 +59,23 @@ export const gameScorePercentageReal = derived(
   ($game) => ($game.score / $game.maxScore) * 100
 );
 
+
+
 const gameTags = [
   { tag: "Solid", color: "#FEE760" },
   { tag: "Solid", color: "#FEE760" },
+  { tag: "Solid", color: "#FEE760" },
+  { tag: "Solid", color: "#FEE760" },
+  { tag: "God start", color: "#93B2EA" },
   { tag: "God start", color: "#93B2EA" },
   { tag: "WOW!", color: "#93B2EA" },
   { tag: "WOW", color: "#BFE069" },
   { tag: "Gud!!", color: "green" },
-  { tag: ";arin", color: "yellow" },
-  { tag: "kake", color: "green" },
-  { tag: "kake", color: "blue" },
-  { tag: "kake:)))", color: "yellow" },
+  { tag: "GUD!", color: "yellow" },
 ];
 
 export const gameTag = derived(
   game,
   ($game) => gameTags[parseInt(Math.round(($game.score / $game.maxScore)* 100).toString()[0])]
 );
+
