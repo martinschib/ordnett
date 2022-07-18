@@ -101,17 +101,19 @@
     <div name="howto" class="howto" style="grid-area: rules;">
       <h3>Hvordan spiller jeg?</h3>
       <img alt="Spillets regler" class="image" src="/rule_1.png" />
+      <img alt="Spillets regler" class="image" src="/rule_2.png" />
       <h3>Finn så mange ord du klarer i ordnettet!</h3>
       <p>Let etter ord i ordnettet.</p>
       <p>En bokstav i nettet kan kun brukes en gang.</p>
       <p>Ordene må bestå av fire eller fler bokstaver.</p>
+      <p>Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.</p>
       <h3>TIPS:</h3>
       <ul>
-        <li>Gjort feil? Bruk <b>fjern</b> kanppen</li>
-        <li>Vil du ha hint? Trykk på "💡"</li>
+        <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
+        <li>Vil du ha hint? Trykk på "💡".</li>
       </ul>
 
-      <p>Har du en tilbakemeldign? Send en en mail til <a href="mailto:martin.clementz@schibsted.com">oss</a></p>
+      <p>Har du en tilbakemeldign? Send en en mail til <a href="mailto:martin.clementz@schibsted.com">oss</a>.</p>
     </div>
   </div>
 </main>
@@ -119,7 +121,7 @@
 <style type="scss">
   @font-face {
     font-family: Product;
-    src: url("./assets/ProduktXXCond-Semibold\ \(3\).woff2") format("woff");
+    src: url("./assets/ProduktXXCond-Semibold.woff2") format("woff");
   }
   :root {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -129,7 +131,7 @@
   h1,
   h3 {
     font-family: Product;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
   }
   h3 {
     font-size: 32px;

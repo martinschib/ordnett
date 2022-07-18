@@ -87,7 +87,7 @@ const retriveStartUpData = async () => {
   }
 
   try {
-    const response = await fetch(`/wordnetts.json`);
+    const response = await fetch(`https://martinschib.github.io/wordnett/wordnetts.json`);
     const data = await response.json()
     console.log(data[`${today}`])
     storeData("wordnett", data[`${today}`].wordnett)
@@ -97,11 +97,13 @@ const retriveStartUpData = async () => {
     storeData("my_words", [])
     storeData("day", today);
 
-    return {
-      ...data[`${today}`],
-      maxScore: data[`${today}`].max_score,
-      myWords: [],
-    };
+    const wordnett = retriveData("wordnett");
+    const maxScore = retriveData("max_score");
+    const maxWords = retriveData("max_words");
+    const solutions = retriveData("solutions");
+
+    return { maxScore, maxWords, solutions, wordnett, myWords:[] };
+
   } catch (e) {
     gameMessage.newMessage("Ops!.. Noe har gått galt.", "red");
     return null;

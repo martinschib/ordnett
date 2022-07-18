@@ -38,7 +38,7 @@ import { retriveData } from "../api/localstorage";
   <div class="words">
     {#each $game.words as word}
       <div class="word">
-        {word}
+        {word.toLowerCase()}
         <span style="color:{scoreColors[calculateWordPoints(word) % 6]}"
           >+{calculateWordPoints(word)}</span
         >
