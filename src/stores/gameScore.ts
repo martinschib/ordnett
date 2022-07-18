@@ -62,12 +62,12 @@ export const gameScorePercentageReal = derived(
 
 
 const gameTags = [
+  { tag: "Nybegynner", color: "#FEE760" },
+  { tag: "God start!", color: "#FEE760" },
   { tag: "Solid", color: "#FEE760" },
   { tag: "Solid", color: "#FEE760" },
-  { tag: "Solid", color: "#FEE760" },
-  { tag: "Solid", color: "#FEE760" },
-  { tag: "God start", color: "#93B2EA" },
-  { tag: "God start", color: "#93B2EA" },
+  { tag: "Mester", color: "#93B2EA" },
+  { tag: "Mester", color: "#93B2EA" },
   { tag: "WOW!", color: "#93B2EA" },
   { tag: "WOW", color: "#BFE069" },
   { tag: "Gud!!", color: "green" },
@@ -76,6 +76,6 @@ const gameTags = [
 
 export const gameTag = derived(
   game,
-  ($game) => gameTags[parseInt(Math.round(($game.score / $game.maxScore)* 100).toString()[0])]
+  ($game) => gameTags[parseInt(((0.9875184*($game.score / $game.maxScore)**0.465751)*100).toString()).toString()[0]]
 );
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+  
   import Check from "./lib/check.svelte";
   import CurrentWord from "./lib/CurrentWord.svelte";
   import Pattern from "./lib/Pattern.svelte";
@@ -32,19 +33,12 @@
     });
 
     ordnett.set(data.wordnett.toUpperCase());
-
     return;
   })();
 </script>
 
 <svelte:head>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"
     rel="stylesheet"
@@ -113,7 +107,7 @@
         <li>Vil du ha hint? Trykk på "💡".</li>
       </ul>
 
-      <p>Har du en tilbakemeldign? Send en en mail til <a href="mailto:martin.clementz@schibsted.com">oss</a>.</p>
+      <p>Har du en tilbakemelding? Send en en mail til <a href="mailto:martin.clementz@schibsted.com">oss</a>.</p>
     </div>
   </div>
 </main>

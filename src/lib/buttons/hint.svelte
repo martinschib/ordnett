@@ -20,7 +20,7 @@
 
 <span style="position: relative;">
   <button on:click={() => getHint()} class="check"
-    ><i class="fa-regular fa-lightbulb fa-lg" /></button
+    ><img alt="hint" class="img" src="lightbulb.svg"></button
   >
   {#if hint}
     <p class="hint">Hint: {hint}</p>
@@ -35,17 +35,26 @@
     white-space: nowrap;
   }
 
+  .img {
+    height: 22px;
+    width: 22px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+  }
   .check {
     border: none;
-    padding: 6px;
+    position: relative;
     box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
 
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 14px;
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
 
     border: 1px solid rgb(181, 181, 181);
     margin: 4px 2px;

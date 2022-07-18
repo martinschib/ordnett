@@ -3,7 +3,7 @@ import { retriveData } from "../api/localstorage";
 
   import { calculateWordPoints } from "../api/api";
 
-  import { game } from "../stores/gameScore";
+  import { game, gameTag } from "../stores/gameScore";
   const scoreColors = ["green", "blue", "red", "yellow", "orange", "purple"];
 
   let activeSort = 0
@@ -29,7 +29,10 @@ import { retriveData } from "../api/localstorage";
 </script>
 
 <div class="container">
-  <h3 class="titel">{$game.words.length} av {$game.solutions.length} ord</h3>
+    <div class="row">
+    <h3 class="titel">{$game.words.length} av {$game.solutions.length} ord</h3>
+    <p class="tag" style="background-color:{$gameTag.color};">{$gameTag.tag}</p>
+  </div>
   <div class="sorting">
     <button class="{activeSort === 0 && 'active'}" on:click="{() => sortWords(0)}"> Siste først </button>
     <button class="{activeSort === 1 && 'active'}" on:click="{() => sortWords(1)}"> A-Å </button>
@@ -52,6 +55,22 @@ import { retriveData } from "../api/localstorage";
     text-align: left;
     padding: 40px 10px;
     margin-bottom: 30px;
+
+    .row {
+      display: flex;
+      align-items: center;
+
+      .tag {
+        padding: 5px 10px;
+        border-radius: 6px;
+
+        margin: 0 10px;
+
+        @media screen and (min-width: 600px) {
+          display: none;
+        }
+      }
+    }
 
     .titel {
       margin: 5px 0;
