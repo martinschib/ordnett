@@ -94,8 +94,8 @@
     </div>
     <div name="howto" class="howto" style="grid-area: rules;">
       <h3>Hvordan spiller jeg?</h3>
-      <img alt="Spillets regler" class="image" src="/rule_1.png" />
-      <img alt="Spillets regler" class="image" src="/rule_2.png" />
+      <img alt="Spillets regler" class="image" src="rule_1.png" />
+      <img alt="Spillets regler" class="image" src="rule_2.png" />
       <h3>Finn så mange ord du klarer i ordnettet!</h3>
       <p>Let etter ord i ordnettet.</p>
       <p>En bokstav i nettet kan kun brukes en gang.</p>
@@ -142,7 +142,7 @@
       justify-content: space-between;
       border-bottom: 3px solid rgb(193, 193, 193);
       padding: 10;
-      margin: 30px 10px;
+      margin: 30px 10px 15px 10px;
 
       .title {
         font-size: 45px;
