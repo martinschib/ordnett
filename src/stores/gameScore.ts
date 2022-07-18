@@ -63,15 +63,15 @@ export const gameScorePercentageReal = derived(
 
 const gameTags = [
   { tag: "Nybegynner", color: "#FEE760" },
-  { tag: "God start!", color: "#FEE760" },
+  { tag: "God start", color: "#FEE760" },
   { tag: "Solid", color: "#FEE760" },
   { tag: "Solid", color: "#FEE760" },
-  { tag: "Mester", color: "#93B2EA" },
-  { tag: "Mester", color: "#93B2EA" },
-  { tag: "WOW!", color: "#93B2EA" },
-  { tag: "WOW", color: "#BFE069" },
-  { tag: "Gud!!", color: "green" },
-  { tag: "GUD!", color: "yellow" },
+  { tag: "Mester", color: "#FF9457" },
+  { tag: "Mester", color: "#FF9457" },
+  { tag: "Utmerket", color: "#aa9be1" },
+  { tag: "Utmerket", color: "#aa9be1" },
+  { tag: "Geni", color: "#fc6560" },
+  { tag: "Geni", color: "#fc6560" },
 ];
 
 export const gameTag = derived(

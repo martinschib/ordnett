@@ -58,7 +58,7 @@
     let col = index % 3;
     let row = Math.floor(index / 3);
     let boxSideLength = document.getElementById("container").clientWidth
-    return { x: (400 / 3) * col + 58 + (boxSideLength!=350 && -col * 12) - col * 18, y: (400 / 3) * row + 58 + (boxSideLength!=350 && - row * 12) - row * 16 };
+    return { x: (400 / 3) * col + 58 + (boxSideLength!=350 && -1 * col * 16 - 8 ) - col * 18, y: (400 / 3) * row + 58 + (boxSideLength!=350 && -1 * row * 16 - 8) - row * 16 };
   };
 </script>
 
@@ -128,8 +128,8 @@
 
   @media screen and (max-width: 400px) {
     .container {
-      width: 86vw;
-      height: 86vw;
+      width: 300px;
+      height: 300px;
     }
     .items {
       width: 100%;
