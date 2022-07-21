@@ -2,7 +2,7 @@ import { game } from "../stores/gameScore";
 import { gameMessage } from "../stores/gameMessage";
 import { retriveData, storeData } from "./localstorage";
 import { pattern } from "../stores/pattern";
-import {word} from "../stores/word"
+import {word, newWord} from "../stores/word"
 
 export function calculateWordPoints(word: string) {
   
@@ -30,7 +30,7 @@ function getDayOfYear(date = new Date()) {
   return differenceInDays;
 }
 
-const isValidWord = (newWord: string) => {
+const isValidWord = (word: string) => {
   const solutions = retriveData("solutions");
   const myWords = retriveData("my_words");
 
@@ -39,17 +39,17 @@ const isValidWord = (newWord: string) => {
     return false;
   }
 
-  if (!solutions.includes(newWord)) {
+  if (!solutions.includes(word)) {
     gameMessage.newMessage("Ordet finnes ikke", "black");
     pattern.reset()
-    word.reset()
+    newWord.reset()
     return false;
   }
 
-  if (myWords.includes(newWord)) {
+  if (myWords.includes(word)) {
     gameMessage.newMessage("Ordet er brukt.", "blue");
     pattern.reset()
-    word.reset()
+    newWord.reset()
     return false;
   }
 

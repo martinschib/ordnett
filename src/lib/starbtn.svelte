@@ -1,12 +1,13 @@
 <script>
+  import { gameTags } from "../stores/gameScore";
 
   const handleClick = () => {
-    console.log("Klicked")
-  } 
-
+    console.log("Klicked");
+    alert("Nivåer: \n" + gameTags.map((t) => t.tag).join(", "));
+  };
 </script>
 
-<button on:click="{() => handleClick()}">
+<button on:click={() => handleClick()}>
   <img alt="star" class="img" src="star.svg" />
 </button>
 

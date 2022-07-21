@@ -21,7 +21,7 @@
       return $ordnett[rotationLookup[i]];
     });
     ordnett.set(newRotatedBoard.join(""));
-    word.reset();
+    newWord.reset();
     pattern.reset();
   }
 </script>

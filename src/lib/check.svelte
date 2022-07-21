@@ -2,19 +2,19 @@
   import { pattern } from "../stores/pattern";
   import { game } from "../stores/gameScore";
   import { ordnett } from "../stores/ordnett";
-  import { word } from "../stores/word";
+  import { newWord, word } from "../stores/word";
   import { gameMessage } from "../stores/gameMessage";
   import { calculateWordPoints, isValidWord } from "../api/api";
   import { retriveData, storeData } from "../api/localstorage";
 
   export async function handleCheck() {
-    if ($word.length <= 1) {
+    if ($newWord.length <= 1) {
       gameMessage.newMessage("Trykk på bokstavene for å lage ord", "blue");
       return;
     }
 
-    for (const letter of $word) {
-      if (!$ordnett.includes(letter)) {
+    for (const letter of $newWord) {
+      if (!$ordnett.includes(letter.letter)) {
         gameMessage.newMessage(
           "Ordet inneholder bokstaver som ikke er i nettet",
           "red"
@@ -23,33 +23,34 @@
       }
     }
 
-    if ($word.length <= 3) {
+    if ($newWord.length <= 3) {
       gameMessage.newMessage("Ordet er for kort", "red");
       return;
     }
 
-    let isValid = await isValidWord($word.join("").toLowerCase());
+    let isValid = await isValidWord($newWord.map(v => v.letter).join("").toLowerCase());
+
     if (!isValid) {
       pattern.reset();
-      word.reset();
+      newWord.reset();
       return;
     }
 
     game.update({
-      score: $game.score + calculateWordPoints($word.join("")),
-      words: [$word.join(""), ...$game.words],
+      score: $game.score + calculateWordPoints($newWord.map(v => v.letter).join("")),
+      words: [$newWord.map(v => v.letter).join(""), ...$game.words],
     });
     storeData("my_words", [
+      $newWord.map(v => v.letter).join("").toLowerCase(),
       ...retriveData("my_words"),
-      $word.join("").toLowerCase(),
     ]);
 
     gameMessage.newMessage(
-      `Bra jobba +${calculateWordPoints($word.join(""))} poeng!`,
+      `Bra jobba +${calculateWordPoints($newWord.map(v => v.letter).join(""))} poeng!`,
       "green"
     );
 
-    word.reset();
+    newWord.reset();
     pattern.reset();
     parent.postMessage(`numWords:${$game.words.length}`, '*');
   }

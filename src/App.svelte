@@ -80,30 +80,31 @@
     </div>
   </div>
   <Dropdown title="Hvordan spiller jeg?">
-    <img alt="Spillets regler" class="image" src="rule_1.png" />
-    <img alt="Spillets regler" class="image" src="rule_2.png" />
+    <div class="row-img">
+      <img alt="Spillets regler" src="rule_1.svg" />
+      <img alt="Spillets regler" src="rule_2.svg" />
+    </div>
+
+    <p><i>Regler:</i></p>
     <p>Let etter ord i ordnettet.</p>
-    <p>En bokstav i nettet kan kun brukes en gang.</p>
-    <p>Ordene må bestå av fire eller fler bokstaver.</p>
+    <p> Ordene må bestå av fire eller fler bokstaver.</p>
     <p>
       Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
     </p>
+    <p><i>Hjelp:</i></p>
     <ul>
       <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
       <li>Vil du ha hint? Trykk på "💡".</li>
     </ul>
-
-  
   </Dropdown>
 
   <Dropdown title="Fasit på dagens ordnett">
     <p>Her har du alle ordene for dagens ordnett.</p>
-    <ul>
+    <ul class="list">
       {#each $game.solutions as word}
         <li>{word.toUpperCase()}</li>
       {/each}
     </ul>
-    
   </Dropdown>
   <p>
     Har du en tilbakemelding? Send en en mail til <a
@@ -135,6 +136,21 @@
   h3 {
     font-family: Product;
     letter-spacing: 1.1px;
+  }
+
+  .list {
+    line-height: 26px;
+  }
+
+  .row-img {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 20px;
+    img {
+      width: 100%;
+      
+    }
   }
 
   h3 {
@@ -173,7 +189,5 @@
     max-width: 500px;
     text-align: left;
   }
-  .image {
-    height: 150px;
-  }
+
 </style>

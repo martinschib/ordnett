@@ -1,17 +1,21 @@
 <script lang="ts">
   import { ordnett } from "../stores/ordnett";
-  import { word } from "../stores/word";
+  import { newWord, word } from "../stores/word";
 
   $: isLetterInNett = (letter: string) =>
     !!$ordnett.includes(letter.toUpperCase());
 </script>
 
 <p>
-  {#each $word as letter, i}
-    <span class="letter" class:in={isLetterInNett(letter)}>{letter}</span>
+  {#each $newWord as letter, i}
+    <span
+      class="letter"
+      class:not={!letter.typed}
+      class:in={isLetterInNett(letter.letter)}>{letter.letter}</span
+    >
   {/each}
 
-  {#if $word.length == 0}
+  {#if $newWord.length == 0}
     <span class="marker" />
     Lag så mange ord du klarer..
   {/if}
@@ -26,8 +30,8 @@
     margin-bottom: 30px;
     padding: 15px 0px;
     word-break: break-all;
-  
 
+    line-height: 50px;
     color: grey;
     max-width: 500px;
     min-width: 300px;
@@ -54,18 +58,21 @@
 
   .letter {
     text-transform: uppercase;
-    color: rgb(162, 162, 162);
+    color: rgb(0, 0, 0);
     font-size: 1em;
   }
 
   .letter.in {
     color: rgb(0, 0, 0);
     background-color: #bfe069;
-    color: white;
 
     margin: 0 4px;
     padding: 6px 12px;
     border-radius: 7px;
+  }
+
+  .letter.not {
+    background-color: #ff9900;
   }
 
   @keyframes blink {

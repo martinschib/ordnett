@@ -61,7 +61,7 @@ export const gameScorePercentageReal = derived(
 
 
 
-const gameTags = [
+export const gameTags = [
   { tag: "Nybegynner", color: "#FEE760" },
   { tag: "God start", color: "#FEE760" },
   { tag: "Solid", color: "#FEE760" },
