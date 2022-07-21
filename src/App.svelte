@@ -1,5 +1,4 @@
 <script lang="ts">
-  
   import Check from "./lib/check.svelte";
   import CurrentWord from "./lib/CurrentWord.svelte";
   import Pattern from "./lib/Pattern.svelte";
@@ -38,7 +37,6 @@
 </script>
 
 <svelte:head>
-
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"
     rel="stylesheet"
@@ -51,7 +49,8 @@
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
     <a style="text-decoration: none" href="https://www.aftenposten.no/spill">
       <p>
-        Alle spill fra Aftenposten <svg
+        Alle spill fra Aftenposten
+        <svg
           width="14"
           height="14"
           viewBox="0 0 14 14"
@@ -67,31 +66,18 @@
     </a>
   </div>
   <div name="content" class="content">
-    <div style="display: flex; flex-direction:column; grid-area: pattern;">
-      <span class="progressMobile">
-        <ProgressBarMobile />
-        <CurrentWord />
-      </span>
+    <UsedWords />
+      <ProgressBarMobile />
+      <CurrentWord />
       <Pattern />
-      <Reset />
       <Message />
-    </div>
-    <span class="progressPc" style="grid-area: progress;">
-      <ProgressBarPc />
-    </span>
-    <div class="words" style="grid-area: words;">
-      <div>
-        <span class="currentWordPC">
-          <CurrentWord />
-        </span>
-        <div>
-          <Remove />
-          <Hint />
-          <Check />
-        </div>
+      <Reset />
+      <div style="margin-bottom: 50px;">
+        <Remove />
+        <Hint />
+        <Check />
       </div>
-      <UsedWords />
-    </div>
+
     <div name="howto" class="howto" style="grid-area: rules;">
       <h3>Hvordan spiller jeg?</h3>
       <img alt="Spillets regler" class="image" src="rule_1.png" />
@@ -100,14 +86,20 @@
       <p>Let etter ord i ordnettet.</p>
       <p>En bokstav i nettet kan kun brukes en gang.</p>
       <p>Ordene må bestå av fire eller fler bokstaver.</p>
-      <p>Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.</p>
+      <p>
+        Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
+      </p>
       <h3>TIPS:</h3>
       <ul>
         <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
         <li>Vil du ha hint? Trykk på "💡".</li>
       </ul>
 
-      <p>Har du en tilbakemelding? Send en en mail til <a href="mailto:martin.clementz@schibsted.com">oss</a>.</p>
+      <p>
+        Har du en tilbakemelding? Send en en mail til <a
+          href="mailto:martin.clementz@schibsted.com">oss</a
+        >.
+      </p>
     </div>
   </div>
 </main>
@@ -115,20 +107,33 @@
 <style type="scss">
   @font-face {
     font-family: Product;
-    src: url("./assets/ProduktXXCond-Semibold.woff2") format("woff");
+    src: url("./assets/Produkt-Semibold.woff2") format("woff");
   }
+
+  @font-face {
+    font-family: Graphik light;
+    src: url("./assets/Graphik.woff2") format("woff");
+  }
+  @font-face {
+    font-family: Graphik;
+    src: url("./assets/Graphik-Semibold.woff") format("woff");
+  }
+
+  
+
   :root {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: Graphik light
   }
 
   h1,
   h3 {
     font-family: Product;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.1px;
   }
+
   h3 {
-    font-size: 32px;
+    font-size: 24px;
+    font-weight: bolder;
   }
   main {
     text-align: center;
@@ -142,63 +147,24 @@
       justify-content: space-between;
       border-bottom: 3px solid rgb(193, 193, 193);
       padding: 10;
-      margin: 30px 10px 15px 10px;
+      margin: 10px 10px 0px 10px;
+      align-items: flex-end;
 
       .title {
-        font-size: 45px;
+        font-size: 32px;
+        
       }
     }
   }
 
   .content {
-    display: grid;
-    grid-template-areas:
-      "pattern progress words"
-      "rules rules words";
-    justify-content: space-around;
-    padding: 50px 0px;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    @media screen and (max-width: 900px) {
-      grid-template-areas:
-        "pattern progress"
-        "words words"
-        "rules rules";
-    }
+    padding: 10px;
 
-    @media screen and (max-width: 600px) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px 0px;
-    }
 
-    .progressPc {
-      display: flex;
-      @media screen and (max-width: 600px) {
-        display: none;
-      }
-    }
-
-    .progressMobile {
-      display: none;
-      margin-bottom: 20px;
-      @media screen and (max-width: 600px) {
-        display: block;
-      }
-    }
-
-    .words {
-      display: flex;
-      flex-direction: column;
-
-      .currentWordPC {
-        @media screen and (max-width: 600px) {
-          display: none;
-        }
-      }
-    }
   }
   .howto {
     max-width: 500px;

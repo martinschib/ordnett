@@ -2,7 +2,8 @@
   import { pattern } from "../stores/pattern";
   import { ordnett } from "../stores/ordnett";
   import { word } from "../stores/word";
-  import { fade } from 'svelte/transition';
+  import { fade } from "svelte/transition";
+
   let items = [
     { id: 0 },
     { id: 1 },
@@ -30,35 +31,49 @@
     return [{ id: (item.id + $pattern[$pattern.length - 1]) / 2 }];
   }
 
-
   function toggleItem(item) {
-    const index = $pattern.findIndex((id) => id === item.id);
-    // if the circle is in the pattern
-    if (index > -1) {
-      pattern.set($pattern.splice(0, index));
-      word.set($word.splice(0, $word.indexOf($ordnett[item.id])))
-      // id the sircle is not in the pattern
+    if ($pattern.includes(item.id)) {
+      if ($pattern[$pattern.length - 1] === item.id && $pattern.filter(i => item.id === i).length === 1) {
+        pattern.add(item.id);
+        word.add($ordnett[item.id]);
+      } else {
+        const lastPattern = $pattern.indexOf(item.id)
+        pattern.set([...$pattern.splice(0, lastPattern)])
+        const lastWord = $word.indexOf($ordnett[item.id])
+        word.set([...$word.splice(0, lastWord)])
+      }
     } else {
       getItemBetweenNextItem(item).forEach((newItem) => {
-        if (!$pattern.includes(newItem.id)) {
+        if (item.id !== newItem.id && !$pattern.includes(newItem.id)) {
           pattern.add(newItem.id);
-          word.add($ordnett[newItem.id])
+          word.add($ordnett[newItem.id]);
         }
       });
-      if (!$pattern.includes(item.id)) {
-        pattern.add(item.id);
-        word.add($ordnett[item.id])
-      }
+      pattern.add(item.id);
+      word.add($ordnett[item.id]);
     }
   }
 
   $: isSelected = (item) => $pattern.includes(item.id);
 
+  $: isMultiple = (item) => $pattern.filter(i => i === item.id).length > 1
+
   $: getSirclePosition = (index: number) => {
     let col = index % 3;
     let row = Math.floor(index / 3);
-    let boxSideLength = document.getElementById("container").clientWidth
-    return { x: (400 / 3) * col + 58 + (boxSideLength!=350 && -1 * col * 16 - 8 ) - col * 18, y: (400 / 3) * row + 58 + (boxSideLength!=350 && -1 * row * 16 - 8) - row * 16 };
+    let boxSideLength = document.getElementById("container").clientWidth;
+    return {
+      x:
+        (400 / 3) * col +
+        58 +
+        (boxSideLength != 350 && -1 * col * 16 - 8) -
+        col * 18,
+      y:
+        (400 / 3) * row +
+        58 +
+        (boxSideLength != 350 && -1 * row * 16 - 8) -
+        row * 16,
+    };
   };
 </script>
 
@@ -77,11 +92,17 @@
       {/if}
     {/each}
   </svg>
-
   <div class="items">
     {#each items as item}
       <div class="item">
+        {#if isMultiple(item) }
+        <div class="outer">
+
+        </div>
+        {/if}
+    
         <button
+          style="border-width: 3px;"
           class="sircle"
           class:on={isSelected(item)}
           on:click={() => toggleItem(item)}>{$ordnett[item.id]}</button
@@ -89,12 +110,9 @@
       </div>
     {/each}
   </div>
-
-		  
 </div>
 
-<style>
-
+<style type="scss">
   .svg-container {
     position: absolute;
     height: 100%;
@@ -105,16 +123,15 @@
   }
 
   .lines {
-    stroke:rgb(38, 176, 42);
+    stroke: #bfe069;
     stroke-width: 4px;
-  } 
+  }
 
   .container {
     position: relative;
     align-content: center;
     display: inline-block;
     width: 350px;
-
   }
   .items {
     display: grid;
@@ -134,7 +151,6 @@
     .items {
       width: 100%;
       height: 100%;
-      
     }
   }
 
@@ -142,10 +158,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .outer {
+      background-color: white;
+      border: #bfe069 solid 3px;
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      position: absolute;
+    }
   }
 
   .sircle.on {
-    border: 3px solid rgb(0, 0, 0);
+    border: 60px solid #bfe069;
   }
 
   .sircle {
@@ -156,19 +181,20 @@
     font-size: x-large;
     width: 80px;
     height: 80px;
+    border: none;
     border-radius: 40px;
     touch-action: manipulation;
     color: black;
+    font-family: Graphik;
+    font-weight: 600;
 
-    font-weight: bold;
 
     box-shadow: -2px 12px 16px -13px rgba(0, 0, 0, 0.24);
     -webkit-box-shadow: -2px 12px 16px -13px rgba(0, 0, 0, 0.24);
     -moz-box-shadow: -2px 12px 16px -13px rgba(0, 0, 0, 0.24);
   }
 
-
   .sircle:hover {
-    border: 2px solid brgb(70, 147, 136)
+    border: 2px solid brgb(70, 147, 136);
   }
 </style>

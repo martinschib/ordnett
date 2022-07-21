@@ -37,7 +37,7 @@
 
     game.update({
       score: $game.score + calculateWordPoints($word.join("")),
-      words: [...$game.words, $word.join("")],
+      words: [$word.join(""), ...$game.words],
     });
     storeData("my_words", [
       ...retriveData("my_words"),
@@ -68,7 +68,7 @@
     display: inline-block;
     font-size: 16px;
 
-    border: 1px solid rgb(50, 196, 50);
+    border: 1px solid grey;
     margin: 4px 2px;
     cursor: pointer;
     background-color: #ffffff;

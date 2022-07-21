@@ -7,26 +7,13 @@
   $: isLetterInNett = (letter: string) =>
     !!$ordnett.includes(letter.toUpperCase());
 
-  $: isLetterdColored = (letter: string, i: number) => {
-    if (!isLetterInNett(letter)) return false;
-
-    let count = $word.filter((value) => value === letter).length;
-    if (count === 1) return true;
-
-    let firstIndex = $word.indexOf(letter);
-    if (i === firstIndex) return true;
-
-    return false;
-  };
-
   function handleRemove() {
-    if (
-      isLetterdColored($word[$word.length - 1], $word.length - 1) &&
-      $word.length - 1 > -1
-    ) {
-      pattern.removeLast();
-    }
-    word.removeLast();
+    if (isLetterInNett($word[$word.length - 1])) {
+        pattern.removeLast();
+        word.removeLast();
+      } else {
+        word.removeLast();
+      }
   }
 </script>
 

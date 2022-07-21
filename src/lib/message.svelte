@@ -21,7 +21,6 @@
 <style type="scss">
   .cotainer {
     width: 100%;
-    margin-bottom: 20px;
     background-color: aquamarine;
     position: relative;
     margin-left: auto;

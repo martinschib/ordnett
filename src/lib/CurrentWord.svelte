@@ -1,48 +1,37 @@
 <script lang="ts">
   import { ordnett } from "../stores/ordnett";
-  import { pattern } from "../stores/pattern";
   import { word } from "../stores/word";
 
   $: isLetterInNett = (letter: string) =>
     !!$ordnett.includes(letter.toUpperCase());
-
-  $: isLetterdColored = (letter: string, i: number) => {
-    if (!isLetterInNett(letter)) return false;
-
-    let count = $word.filter((value) => value === letter).length;
-    if (count === 1) return true;
-
-    let firstIndex = $word.indexOf(letter);
-    if (i === firstIndex) return true;
-
-    return false;
-  };
-
 </script>
 
 <p>
   {#each $word as letter, i}
-    <span class="letter" class:in={isLetterdColored(letter, i)}>{letter}</span>
+    <span class="letter" class:in={isLetterInNett(letter)}>{letter}</span>
   {/each}
 
-  <span class="marker">
-    {#if $word.length == 0}
-      Lag så mange ord du klarer..
-    {/if}
-  </span>
+  {#if $word.length == 0}
+    <span class="marker" />
+    Lag så mange ord du klarer..
+  {/if}
 </p>
 
 <style type="scss">
   p {
     text-align: center;
     font-weight: 700;
-    font-size: 1.1em;
-    margin-top: 2rem;
-    height: 36px;
-    word-break: break-all; 
-    padding: 5px;
+    font-size: 1.3em;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    padding: 15px 0px;
+    word-break: break-all;
+  
+
     color: grey;
-    max-width: 400px;
+    max-width: 500px;
+    min-width: 300px;
+
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -50,8 +39,7 @@
     border-bottom: 2px solid black;
 
     @media screen and (max-width: 820px) {
-      width: 250px;
-      margin-top: 5d0px;
+      width: 100%;
     }
   }
 
@@ -67,11 +55,17 @@
   .letter {
     text-transform: uppercase;
     color: rgb(162, 162, 162);
-    font-size: 1.9em;
+    font-size: 1em;
   }
 
   .letter.in {
     color: rgb(0, 0, 0);
+    background-color: #bfe069;
+    color: white;
+
+    margin: 0 4px;
+    padding: 6px 12px;
+    border-radius: 7px;
   }
 
   @keyframes blink {

@@ -1,12 +1,19 @@
 <script type="ts">
+  import { gameMessage } from "../../stores/gameMessage";
+
   import { game } from "../../stores/gameScore";
 
   let hint = "";
 
   const getHint = () => {
-    let unusedWords = $game.solutions.filter((a) => !$game.words.includes(a))
-    let word = unusedWords[Math.floor(Math.random() * unusedWords.length)]
+    let unusedWords = $game.solutions.filter((a) => !$game.words.includes(a));
+    let word = unusedWords[Math.floor(Math.random() * unusedWords.length)];
+    console.log(unusedWords);
 
+    if (typeof word == "undefined") {
+      gameMessage.newMessage("Du har jo funnet alle ordene ;)", "blue");
+      return;
+    }
     if (word.length >= 6) {
       hint =
         word[0] + word[1] + "*".repeat(word.length - 3) + word[word.length - 1];
@@ -20,19 +27,24 @@
 
 <span style="position: relative;">
   <button on:click={() => getHint()} class="check"
-    ><img alt="hint" class="img" src="lightbulb.svg"></button
+    ><img alt="hint" class="img" src="lightbulb.svg" /></button
   >
   {#if hint}
-    <p class="hint">Hint: {hint}</p>
+    <p class="hint">Prøv: <b>{hint.toUpperCase()}</b></p>
   {/if}
 </span>
 
 <style>
   .hint {
-    position: absolute;
-    font-weight: 600;
     right: 0;
-    white-space: nowrap;
+   
+    width: 150px;
+    padding: 7px 0px;
+    border-radius: 5px;
+    position: absolute;
+    background-color: #f5f5f5;
+    transform: translate(-35%, 0);
+    left: 0;
   }
 
   .img {
@@ -42,7 +54,6 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-
   }
   .check {
     border: none;

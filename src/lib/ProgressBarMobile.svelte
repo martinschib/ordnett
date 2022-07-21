@@ -1,7 +1,14 @@
 <script>
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
-  import { game, gameScorePercentage1, gameScorePercentageReal, gameTag, pointFunction } from "../stores/gameScore";
+  import {
+    game,
+    gameScorePercentage1,
+    gameScorePercentageReal,
+    gameTag,
+    pointFunction,
+  } from "../stores/gameScore";
+  import Starbtn from "./starbtn.svelte";
 
   const progress = tweened($game.score, {
     duration: 400,
@@ -11,116 +18,72 @@
   game.subscribe((data) => {
     progress.set(data.score);
   });
-
-  
 </script>
 
 <div class="progress-bar-container">
-  <div name="text" class="subgoaltext">
-    <p class="subgoal one">{pointFunction(0.15, $game.maxScore)}</p>
-    <p class="subgoal two">{pointFunction(0.4, $game.maxScore)}</p>
-    <p class="subgoal three">{pointFunction(0.6, $game.maxScore)}</p>
-    <p class="subgoal four">{pointFunction(0.8, $game.maxScore)}</p>
+  <div class="row">
+    <Starbtn />
+    <div class="full">
+      <div name="text" class="progress-text">
+        <p>{$game.score} poeng</p>
+        <p>{$game.maxScore} poeng</p>
+      </div>
+      <div
+        class="progress-bar"
+        style="--progress-width: {$gameScorePercentage1}%;"
+      >
+        <span class="progress" style="background-color: {$gameTag.color};" />
+      </div>
+    </div>
   </div>
-  <div class="progress-bar" style="--progress-width: {$gameScorePercentage1}%;">
-    <span class="progress" style="background-color: {$gameTag.color};" />
-    <span class="subgoal one" style="left: 15%; display: {pointFunction(0.15, $game.maxScore) > $game.score ? "block": "none"};" />
-    <span class="subgoal two" style="left: 35%; display: {pointFunction(0.4, $game.maxScore) > $game.score ? "block": "none"};" />
-    <span class="subgoal three" style="left: 57%; display: {pointFunction(0.6, $game.maxScore) > $game.score ? "block": "none"};" />
-    <span class="subgoal four" style="left: 80%; display: {pointFunction(0.8, $game.maxScore) > $game.score ? "block": "none"};" />
-    <span class="maxScore"><p>{$game.maxScore}</p></span>
-  </div>
-
-
 </div>
 
 <style type="scss">
- 
-  .progress-bar-container {
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .full {
+    width: 100%;
 
+    .progress-text {
+      padding: 3px 10px;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font-size: 16px;
+
+      p {
+        margin: 3px 0px;
+        font-weight: bold;
+      }
+    }
+  }
+  .progress-bar-container {
     margin-left: auto;
     margin-right: auto;
     position: relative;
     width: 100%;
     padding-top: 12px;
-    margin-top: 20px;
-
-    .subgoaltext {
-      padding: 10px;
-      .subgoal {
-        position: absolute;
-        top: -36%;
-        font-size: 15px;
-        color: grey;
-        &.one {
-          left: 14%;
-        }
-        &.two {
-          left: 31%;
-        }
-        &.three {
-          left: 50%;
-        }
-        &.four {
-          left: 69%;
-        }
-      }
-    }
-
+    max-width: 400px;
   }
   .progress-bar {
     position: relative;
     height: 12px;
-    width: 87%;
+    width: 100%;
     border-radius: 15px;
     background-color: rgb(240, 240, 240);
 
-    .subgoal {
-      position: absolute;
-      top: -50%;
-      height: 22px;
-      width: 22px;
-      background-color: rgb(240, 240, 240);
-      border-radius: 25px;
-      &.one {
-        left: 15%;
-      }
-      &.two {
-        left: 35%;
-      }
-      &.three {
-        left: 57%;
-      }
-      &.four {
-        left: 80%;
-      }
-    }
   }
 
-  .maxScore {
-    position: absolute;
-    border-radius: 25px;
-    transform: translate(40px, -32px);
-    right: 0;
-    width: 45px;
-    height: 45px;
-    font-weight: bold;
-    background-color: rgb(240, 240, 240);
-    border: 2px solid white;
-  }
-  .maxScore p {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-  }
   .progress {
     display: flex;
     width: var(--progress-width);
     height: 100%;
     background: #b4da55;
     border-radius: 15px;
-
   }
 </style>

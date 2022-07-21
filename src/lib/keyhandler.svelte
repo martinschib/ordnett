@@ -1,15 +1,13 @@
 <script lang="ts">
-import { calculateWordPoints, isValidWord } from "../api/api";
-import { retriveData, storeData } from "../api/localstorage";
+  import { calculateWordPoints, isValidWord } from "../api/api";
+  import { retriveData, storeData } from "../api/localstorage";
 
-import { gameMessage } from "../stores/gameMessage";
-import { game } from "../stores/gameScore";
+  import { gameMessage } from "../stores/gameMessage";
+  import { game } from "../stores/gameScore";
 
   import { ordnett } from "../stores/ordnett";
   import { pattern } from "../stores/pattern";
   import { word } from "../stores/word";
-
-
 
   export async function handleCheck() {
     if ($word.length <= 1) {
@@ -41,7 +39,7 @@ import { game } from "../stores/gameScore";
 
     game.update({
       score: $game.score + calculateWordPoints($word.join("")),
-      words: [...$game.words, $word.join("").toLowerCase()],
+      words: [$word.join("").toLowerCase(), ...$game.words],
     });
     storeData("my_words", [
       ...retriveData("my_words"),
@@ -56,24 +54,11 @@ import { game } from "../stores/gameScore";
     word.reset();
     pattern.reset();
 
-    parent.postMessage(`numWords:${$game.words.length}`, '*');
-    
+    parent.postMessage(`numWords:${$game.words.length}`, "*");
   }
 
   $: isLetterInNett = (letter: string) =>
     !!$ordnett.includes(letter.toUpperCase());
-
-  $: isLetterdColored = (letter: string, i: number) => {
-    if (!isLetterInNett(letter)) return false;
-
-    let count = $word.filter((value) => value === letter).length;
-    if (count === 1) return true;
-
-    let firstIndex = $word.indexOf(letter);
-    if (i === firstIndex) return true;
-
-    return false;
-  };
 
   function getItemBetweenNextItem(item) {
     if ($pattern.length === 0) return [];
@@ -93,42 +78,38 @@ import { game } from "../stores/gameScore";
   function handleKeydown(event) {
     // backspace
     if (event.keyCode == 8 && $word.length - 1 > -1) {
-      if (isLetterdColored($word[$word.length - 1], $word.length - 1)) {
+      if (isLetterInNett($word[$word.length - 1])) {
         pattern.removeLast();
         word.removeLast();
       } else {
         word.removeLast();
       }
     } else if (event.keyCode == 13) {
-        handleCheck()
-    }
-    else if (
+      handleCheck();
+    } else if (
       (event.keyCode >= 65 && event.keyCode <= 90) ||
       event.keyCode === 186 ||
       event.keyCode === 222 ||
       event.keyCode === 219
     ) {
-      word.add(event.key.toUpperCase());
 
-      if (isLetterInNett(event.key)) {
-        let letterIndex = $ordnett
-          .split("")
-          .map((item, i) => {
-            if ($pattern.includes(i)) return "*";
-            else return item;
-          })
-          .indexOf(event.key.toUpperCase());
+      if (isLetterInNett(event.key) && $word.filter(i => event.key.toUpperCase() === i).length  < 2) {
+        let letterIndex = $ordnett.split("").indexOf(event.key.toUpperCase());
 
-        if (letterIndex > -1 && !$pattern.includes(letterIndex)) {
+        if ($pattern.includes(letterIndex)) {
+          if ($pattern[$pattern.length - 1] === letterIndex) {
+            pattern.add(letterIndex);
+            word.add($ordnett[letterIndex]);
+          } 
+        } else {
           getItemBetweenNextItem({ id: letterIndex }).forEach((newItem) => {
-            if (!$pattern.includes(newItem.id)) {
+            if (letterIndex !== newItem.id && !$pattern.includes(newItem.id)) {
               pattern.add(newItem.id);
               word.add($ordnett[newItem.id]);
             }
           });
-          if (!$pattern.includes(letterIndex)) {
-            pattern.add(letterIndex);
-          }
+          pattern.add(letterIndex);
+          word.add($ordnett[letterIndex]);
         }
       }
     }

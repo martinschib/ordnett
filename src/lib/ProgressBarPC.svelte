@@ -7,6 +7,7 @@
     gameTag,
     pointFunction,
   } from "../stores/gameScore";
+import Starbtn from "./starbtn.svelte";
 
   const progress = tweened($game.score, {
     duration: 400,
@@ -64,7 +65,7 @@
       </p>
     </div>
   {/if}
-
+    <Starbtn />
   <p class="points">{$game.score} av {$game.maxScore} poeng!</p>
 </div>
 
