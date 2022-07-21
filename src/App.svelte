@@ -15,6 +15,7 @@
   import ProgressBarPc from "./lib/ProgressBarPC.svelte";
   import Hint from "./lib/buttons/hint.svelte";
   import Keyhandler from "./lib/keyhandler.svelte";
+  import Dropdown from "./lib/Dropdown.svelte";
 
   (async function () {
     const data = await retriveStartUpData();
@@ -67,41 +68,48 @@
   </div>
   <div name="content" class="content">
     <UsedWords />
-      <ProgressBarMobile />
-      <CurrentWord />
-      <Pattern />
-      <Message />
-      <Reset />
-      <div style="margin-bottom: 50px;">
-        <Remove />
-        <Hint />
-        <Check />
-      </div>
-
-    <div name="howto" class="howto" style="grid-area: rules;">
-      <h3>Hvordan spiller jeg?</h3>
-      <img alt="Spillets regler" class="image" src="rule_1.png" />
-      <img alt="Spillets regler" class="image" src="rule_2.png" />
-      <h3>Finn så mange ord du klarer i ordnettet!</h3>
-      <p>Let etter ord i ordnettet.</p>
-      <p>En bokstav i nettet kan kun brukes en gang.</p>
-      <p>Ordene må bestå av fire eller fler bokstaver.</p>
-      <p>
-        Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
-      </p>
-      <h3>TIPS:</h3>
-      <ul>
-        <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
-        <li>Vil du ha hint? Trykk på "💡".</li>
-      </ul>
-
-      <p>
-        Har du en tilbakemelding? Send en en mail til <a
-          href="mailto:martin.clementz@schibsted.com">oss</a
-        >.
-      </p>
+    <ProgressBarMobile />
+    <CurrentWord />
+    <Pattern />
+    <Message />
+    <Reset />
+    <div style="margin-bottom: 50px;">
+      <Remove />
+      <Hint />
+      <Check />
     </div>
   </div>
+  <Dropdown title="Hvordan spiller jeg?">
+    <img alt="Spillets regler" class="image" src="rule_1.png" />
+    <img alt="Spillets regler" class="image" src="rule_2.png" />
+    <p>Let etter ord i ordnettet.</p>
+    <p>En bokstav i nettet kan kun brukes en gang.</p>
+    <p>Ordene må bestå av fire eller fler bokstaver.</p>
+    <p>
+      Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
+    </p>
+    <ul>
+      <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
+      <li>Vil du ha hint? Trykk på "💡".</li>
+    </ul>
+
+  
+  </Dropdown>
+
+  <Dropdown title="Fasit på dagens ordnett">
+    <p>Her har du alle ordene for dagens ordnett.</p>
+    <ul>
+      {#each $game.solutions as word}
+        <li>{word.toUpperCase()}</li>
+      {/each}
+    </ul>
+    
+  </Dropdown>
+  <p>
+    Har du en tilbakemelding? Send en en mail til <a
+      href="mailto:martin.clementz@schibsted.com">oss</a
+    >.
+  </p>
 </main>
 
 <style type="scss">
@@ -119,10 +127,8 @@
     src: url("./assets/Graphik-Semibold.woff") format("woff");
   }
 
-  
-
   :root {
-    font-family: Graphik light
+    font-family: Graphik light;
   }
 
   h1,
@@ -152,7 +158,6 @@
 
       .title {
         font-size: 32px;
-        
       }
     }
   }
@@ -163,15 +168,12 @@
     align-items: center;
 
     padding: 10px;
-
-
   }
   .howto {
     max-width: 500px;
     text-align: left;
-
-    .image {
-      height: 150px;
-    }
+  }
+  .image {
+    height: 150px;
   }
 </style>

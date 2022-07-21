@@ -48,7 +48,7 @@
             </div>
           {/each}
         </div>
-        <button class="btn" on:click={() => (open = true)}> 🔽 </button>
+        <button class="btn" on:click={() => (open = true)}> <img alt="pil ned" src="arrow_down.svg"></button>
       </div>
     </div>
   {:else}
@@ -80,7 +80,7 @@
               </button>
             </div>
           </div>
-          <button class="btn" on:click={() => (open = false)}> 🔼 </button>
+          <button class="btn" on:click={() => (open = false)}> <img alt="pil opp" src="arrow_up.svg"> </button>
         </div>
         <div class="words">
           {#each $game.words as word}

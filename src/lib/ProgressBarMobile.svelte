@@ -68,7 +68,7 @@
     position: relative;
     width: 100%;
     padding-top: 12px;
-    max-width: 400px;
+    max-width: 350px;
   }
   .progress-bar {
     position: relative;
