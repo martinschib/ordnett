@@ -50,9 +50,10 @@
   <Keyhandler />
   <div class="header">
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
+    
     <a
       style="text-decoration: none"
-      href="/"
+      href="#"
       on:click={() =>
         (window.parent.location.href = "https://www.aftenposten.no/spill")}
     >
