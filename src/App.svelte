@@ -15,8 +15,8 @@
   import Hint from "./lib/buttons/hint.svelte";
   import Keyhandler from "./lib/keyhandler.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
-import { modal } from "./stores/modal";
-import Modal from "svelte-simple-modal";
+  import { modal } from "./stores/modal";
+  import Modal from "svelte-simple-modal";
 
   (async function () {
     const data = await retriveStartUpData();
@@ -36,10 +36,6 @@ import Modal from "svelte-simple-modal";
     ordnett.set(data.wordnett.toUpperCase());
     return;
   })();
-  
-
-
-
 </script>
 
 <svelte:head>
@@ -50,12 +46,16 @@ import Modal from "svelte-simple-modal";
   />
 </svelte:head>
 <main>
-  <Modal show={$modal}>
-  </Modal>
+  <Modal show={$modal} />
   <Keyhandler />
   <div class="header">
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
-    <a style="text-decoration: none" href="https://www.aftenposten.no/spill">
+    <a
+      style="text-decoration: none"
+      href="/"
+      on:click={() =>
+        (window.parent.location.href = "https://www.aftenposten.no/spill")}
+    >
       <p style="margin: 0; text-align:right; color: black;">
         Alle spill<span class="hideonphone">&nbsp;fra Aftenposten</span>
         <svg
@@ -80,7 +80,9 @@ import Modal from "svelte-simple-modal";
     <Pattern />
     <Message />
     <Reset />
-    <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 40px;">
+    <div
+      style="display:flex; align-items:center; gap: 10px; margin-bottom: 40px;"
+    >
       <Remove />
       <Hint />
       <Check />
@@ -95,19 +97,15 @@ import Modal from "svelte-simple-modal";
 
     <p><i>Regler:</i></p>
     <ul style="line-height: 24px;">
-      <li>
-        Let etter ord i ordnettet
-      </li>
-      <li>
-        Ordene må bestå av fire eller fler bokstaver.
-      </li>
+      <li>Let etter ord i ordnettet</li>
+      <li>Ordene må bestå av fire eller fler bokstaver.</li>
       <li>
         Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
       </li>
     </ul>
 
     <p><i>Hjelp:</i></p>
-    <ul  style="line-height: 24px;">
+    <ul style="line-height: 24px;">
       <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
       <li>Vil du ha hint? Trykk på "💡".</li>
     </ul>
@@ -152,7 +150,6 @@ import Modal from "svelte-simple-modal";
     font-family: Arial, Helvetica, sans-serif;
   }
 
-
   .hideonphone {
     @media screen and (max-width: 500px) {
       display: none;
@@ -175,7 +172,6 @@ import Modal from "svelte-simple-modal";
     padding: 20px;
     img {
       width: 100%;
-      
     }
   }
 
@@ -216,5 +212,4 @@ import Modal from "svelte-simple-modal";
     max-width: 500px;
     text-align: left;
   }
-
 </style>
