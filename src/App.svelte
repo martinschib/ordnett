@@ -183,7 +183,6 @@
   main {
     text-align: center;
     margin: 0 auto;
-    padding: 20px;
     max-width: 1000px;
 
     .header {
