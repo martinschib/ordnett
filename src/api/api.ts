@@ -2,24 +2,11 @@ import { game } from "../stores/gameScore";
 import { gameMessage } from "../stores/gameMessage";
 import { retriveData, storeData } from "./localstorage";
 import { pattern } from "../stores/pattern";
-import {word} from "../stores/word"
+import {word, newWord} from "../stores/word"
 
 export function calculateWordPoints(word: string) {
-  switch (word.length) {
-    case 4:
-      return 6;
-    case 5:
-      return 7;
-    case 6:
-      return 10;
-    case 7:
-      return 15;
-    case 8:
-      return 22;
-    case 9:
-      return 30;
-  }
-  return 0;
+  
+  return word.length
 }
 
 export function getMaxPoints(words : string[]) {
@@ -43,7 +30,7 @@ function getDayOfYear(date = new Date()) {
   return differenceInDays;
 }
 
-const isValidWord = (newWord: string) => {
+const isValidWord = (word: string) => {
   const solutions = retriveData("solutions");
   const myWords = retriveData("my_words");
 
@@ -52,17 +39,17 @@ const isValidWord = (newWord: string) => {
     return false;
   }
 
-  if (!solutions.includes(newWord)) {
+  if (!solutions.includes(word)) {
     gameMessage.newMessage("Ordet finnes ikke", "black");
     pattern.reset()
-    word.reset()
+    newWord.reset()
     return false;
   }
 
-  if (myWords.includes(newWord)) {
+  if (myWords.includes(word)) {
     gameMessage.newMessage("Ordet er brukt.", "blue");
     pattern.reset()
-    word.reset()
+    newWord.reset()
     return false;
   }
 
@@ -70,7 +57,7 @@ const isValidWord = (newWord: string) => {
 };
 
 const retriveStartUpData = async () => {
-  const today = getDayOfYear(new Date()) % 143
+  const today = getDayOfYear(new Date()) % 106
 
   const storedDay = retriveData("day");
 
@@ -87,9 +74,8 @@ const retriveStartUpData = async () => {
   }
 
   try {
-    const response = await fetch(`https://martinschib.github.io/ordnett/wordnetts.json`);
+    const response = await fetch(`wordnetts.json`);
     const data = await response.json()
-    console.log(data[`${today}`])
     storeData("wordnett", data[`${today}`].wordnett)
     storeData("max_score", data[`${today}`].maxScore)
     storeData("max_words", data[`${today}`].maxWords)

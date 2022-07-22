@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { word } from "../stores/word";
+  import { newWord } from "../stores/word";
 
   import { pattern } from "../stores/pattern";
   import { ordnett } from "../stores/ordnett";
@@ -7,26 +7,17 @@
   $: isLetterInNett = (letter: string) =>
     !!$ordnett.includes(letter.toUpperCase());
 
-  $: isLetterdColored = (letter: string, i: number) => {
-    if (!isLetterInNett(letter)) return false;
-
-    let count = $word.filter((value) => value === letter).length;
-    if (count === 1) return true;
-
-    let firstIndex = $word.indexOf(letter);
-    if (i === firstIndex) return true;
-
-    return false;
-  };
-
   function handleRemove() {
-    if (
-      isLetterdColored($word[$word.length - 1], $word.length - 1) &&
-      $word.length - 1 > -1
-    ) {
-      pattern.removeLast();
-    }
-    word.removeLast();
+    if (isLetterInNett($newWord.map(v=> v.letter)[$newWord.length - 1])) {
+        pattern.removeLast();
+        newWord.removeLast();
+        if ($newWord.length > 0 && isLetterInNett($newWord.map(v=> v.letter)[$newWord.length - 1]) && $newWord.map(v=> !v.typed)[$newWord.length - 1]) {
+          pattern.removeLast();
+          newWord.removeLast();
+        }
+      } else {
+        newWord.removeLast();
+      }
   }
 </script>
 

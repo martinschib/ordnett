@@ -1,5 +1,4 @@
 <script lang="ts">
-  
   import Check from "./lib/check.svelte";
   import CurrentWord from "./lib/CurrentWord.svelte";
   import Pattern from "./lib/Pattern.svelte";
@@ -13,9 +12,11 @@
   import { ordnett } from "./stores/ordnett";
   import { gameMessage } from "./stores/gameMessage";
   import UsedWords from "./lib/UsedWords.svelte";
-  import ProgressBarPc from "./lib/ProgressBarPC.svelte";
   import Hint from "./lib/buttons/hint.svelte";
   import Keyhandler from "./lib/keyhandler.svelte";
+  import Dropdown from "./lib/Dropdown.svelte";
+import { modal } from "./stores/modal";
+import Modal from "svelte-simple-modal";
 
   (async function () {
     const data = await retriveStartUpData();
@@ -35,10 +36,13 @@
     ordnett.set(data.wordnett.toUpperCase());
     return;
   })();
+  
+
+
+
 </script>
 
 <svelte:head>
-
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"
     rel="stylesheet"
@@ -46,12 +50,15 @@
   />
 </svelte:head>
 <main>
+  <Modal show={$modal}>
+  </Modal>
   <Keyhandler />
   <div class="header">
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
     <a style="text-decoration: none" href="https://www.aftenposten.no/spill">
-      <p>
-        Alle spill fra Aftenposten <svg
+      <p style="margin: 0; text-align:right; color: black;">
+        Alle spill<span class="hideonphone">&nbsp;fra Aftenposten</span>
+        <svg
           width="14"
           height="14"
           viewBox="0 0 14 14"
@@ -67,68 +74,114 @@
     </a>
   </div>
   <div name="content" class="content">
-    <div style="display: flex; flex-direction:column; grid-area: pattern;">
-      <span class="progressMobile">
-        <ProgressBarMobile />
-        <CurrentWord />
-      </span>
-      <Pattern />
-      <Reset />
-      <Message />
-    </div>
-    <span class="progressPc" style="grid-area: progress;">
-      <ProgressBarPc />
-    </span>
-    <div class="words" style="grid-area: words;">
-      <div>
-        <span class="currentWordPC">
-          <CurrentWord />
-        </span>
-        <div>
-          <Remove />
-          <Hint />
-          <Check />
-        </div>
-      </div>
-      <UsedWords />
-    </div>
-    <div name="howto" class="howto" style="grid-area: rules;">
-      <h3>Hvordan spiller jeg?</h3>
-      <img alt="Spillets regler" class="image" src="rule_1.png" />
-      <img alt="Spillets regler" class="image" src="rule_2.png" />
-      <h3>Finn så mange ord du klarer i ordnettet!</h3>
-      <p>Let etter ord i ordnettet.</p>
-      <p>En bokstav i nettet kan kun brukes en gang.</p>
-      <p>Ordene må bestå av fire eller fler bokstaver.</p>
-      <p>Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.</p>
-      <h3>TIPS:</h3>
-      <ul>
-        <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
-        <li>Vil du ha hint? Trykk på "💡".</li>
-      </ul>
-
-      <p>Har du en tilbakemelding? Send en en mail til <a href="mailto:martin.clementz@schibsted.com">oss</a>.</p>
+    <UsedWords />
+    <ProgressBarMobile />
+    <CurrentWord />
+    <Pattern />
+    <Message />
+    <Reset />
+    <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 40px;">
+      <Remove />
+      <Hint />
+      <Check />
     </div>
   </div>
+
+  <Dropdown title="Hvordan spiller jeg?" open={true}>
+    <div class="row-img">
+      <img alt="Spillets regler" src="rule_1.svg" />
+      <img alt="Spillets regler" src="rule_2.svg" />
+    </div>
+
+    <p><i>Regler:</i></p>
+    <ul style="line-height: 24px;">
+      <li>
+        Let etter ord i ordnettet
+      </li>
+      <li>
+        Ordene må bestå av fire eller fler bokstaver.
+      </li>
+      <li>
+        Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
+      </li>
+    </ul>
+
+    <p><i>Hjelp:</i></p>
+    <ul  style="line-height: 24px;">
+      <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
+      <li>Vil du ha hint? Trykk på "💡".</li>
+    </ul>
+  </Dropdown>
+
+  <Dropdown title="Fasit på dagens ordnett">
+    <p>Her har du alle ordene for dagens ordnett.</p>
+    <ul class="list">
+      {#each $game.solutions as word}
+        <li>{word.toUpperCase()}</li>
+      {/each}
+    </ul>
+  </Dropdown>
+  <p>
+    Har du en tilbakemelding? Send en en mail til <a
+      href="mailto:martin.clementz@schibsted.com">oss</a
+    >.
+  </p>
 </main>
 
 <style type="scss">
   @font-face {
-    font-family: Product;
-    src: url("./assets/ProduktXXCond-Semibold.woff2") format("woff");
-  }
-  :root {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: ProductL;
+    src: url("./assets/Produkt.woff2") format("woff");
   }
 
+  @font-face {
+    font-family: Product;
+    src: url("./assets/Produkt-Semibold.woff2") format("woff");
+  }
+
+  @font-face {
+    font-family: Graphik light;
+    src: url("./assets/Graphik.woff2") format("woff");
+  }
+  @font-face {
+    font-family: Graphik;
+    src: url("./assets/Graphik-Semibold.woff") format("woff");
+  }
+
+  :root {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+
+  .hideonphone {
+    @media screen and (max-width: 500px) {
+      display: none;
+    }
+  }
   h1,
   h3 {
     font-family: Product;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.1px;
   }
+
+  .list {
+    line-height: 26px;
+  }
+
+  .row-img {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 20px;
+    img {
+      width: 100%;
+      
+    }
+  }
+
   h3 {
-    font-size: 32px;
+    font-size: 24px;
+    font-weight: bolder;
   }
   main {
     text-align: center;
@@ -140,72 +193,28 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      gap: 40px;
       border-bottom: 3px solid rgb(193, 193, 193);
       padding: 10;
-      margin: 30px 10px 15px 10px;
+      margin: 10px 10px 0px 10px;
+      align-items: center;
 
       .title {
-        font-size: 45px;
+        font-size: 32px;
       }
     }
   }
 
   .content {
-    display: grid;
-    grid-template-areas:
-      "pattern progress words"
-      "rules rules words";
-    justify-content: space-around;
-    padding: 50px 0px;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    @media screen and (max-width: 900px) {
-      grid-template-areas:
-        "pattern progress"
-        "words words"
-        "rules rules";
-    }
-
-    @media screen and (max-width: 600px) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px 0px;
-    }
-
-    .progressPc {
-      display: flex;
-      @media screen and (max-width: 600px) {
-        display: none;
-      }
-    }
-
-    .progressMobile {
-      display: none;
-      margin-bottom: 20px;
-      @media screen and (max-width: 600px) {
-        display: block;
-      }
-    }
-
-    .words {
-      display: flex;
-      flex-direction: column;
-
-      .currentWordPC {
-        @media screen and (max-width: 600px) {
-          display: none;
-        }
-      }
-    }
+    padding: 10px;
   }
   .howto {
     max-width: 500px;
     text-align: left;
-
-    .image {
-      height: 150px;
-    }
   }
+
 </style>

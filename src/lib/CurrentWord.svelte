@@ -1,57 +1,40 @@
 <script lang="ts">
   import { ordnett } from "../stores/ordnett";
-  import { pattern } from "../stores/pattern";
-  import { word } from "../stores/word";
+  import { newWord } from "../stores/word";
 
   $: isLetterInNett = (letter: string) =>
     !!$ordnett.includes(letter.toUpperCase());
-
-  $: isLetterdColored = (letter: string, i: number) => {
-    if (!isLetterInNett(letter)) return false;
-
-    let count = $word.filter((value) => value === letter).length;
-    if (count === 1) return true;
-
-    let firstIndex = $word.indexOf(letter);
-    if (i === firstIndex) return true;
-
-    return false;
-  };
-
 </script>
 
-<p>
-  {#each $word as letter, i}
-    <span class="letter" class:in={isLetterdColored(letter, i)}>{letter}</span>
-  {/each}
-
-  <span class="marker">
-    {#if $word.length == 0}
+<div class="container">
+  <p>
+    {#each $newWord as letter, i}
+      <span
+        class="letter"
+        class:not={!letter.typed}
+        class:in={isLetterInNett(letter.letter)}>{letter.letter}</span
+      >
+    {/each}
+    <span class="marker" />
+    {#if $newWord.length == 0}
+      
       Lag så mange ord du klarer..
     {/if}
-  </span>
-</p>
+  </p>
+</div>
 
 <style type="scss">
-  p {
-    text-align: center;
-    font-weight: 700;
-    font-size: 1.1em;
-    margin-top: 2rem;
-    height: 36px;
-    word-break: break-all; 
-    padding: 5px;
-    color: grey;
-    max-width: 400px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-
-    border-bottom: 2px solid black;
-
-    @media screen and (max-width: 820px) {
-      width: 250px;
-      margin-top: 5d0px;
+  .container {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgb(53, 53, 53);
+    min-width: 300px;
+    max-width: 450px;
+    font-size: large;
+      
+    p {
+      word-break: break-all;
+      font-family: Graphik;
     }
   }
 
@@ -66,12 +49,22 @@
 
   .letter {
     text-transform: uppercase;
-    color: rgb(162, 162, 162);
-    font-size: 1.9em;
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    font-family: Graphik;
   }
 
   .letter.in {
     color: rgb(0, 0, 0);
+    background-color: #bfe069;
+
+    margin: 0 4px;
+    padding: 6px 12px;
+    border-radius: 7px;
+  }
+
+  .letter.not {
+    background-color: #ff9900;
   }
 
   @keyframes blink {

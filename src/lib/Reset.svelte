@@ -1,8 +1,24 @@
 <script>
-  import { word } from "../stores/word";
+  import { newWord } from "../stores/word";
 
   import { pattern } from "../stores/pattern";
   import { ordnett } from "../stores/ordnett";
+
+  import { elasticOut } from "svelte/easing";
+
+  let unique = {};
+
+  function spin(node, { duration }) {
+    return {
+      duration,
+      css: (t) => {
+        const eased = elasticOut(t);
+
+        return `
+					transform: scale(${eased}) rotate(${eased * 1080}deg);`;
+      },
+    };
+  }
 
   const rotationLookup = {
     0: 2,
@@ -21,14 +37,17 @@
       return $ordnett[rotationLookup[i]];
     });
     ordnett.set(newRotatedBoard.join(""));
-    word.reset();
+    newWord.reset();
     pattern.reset();
+    unique = {};
   }
 </script>
 
-<button class="reset" on:click={() => handleReset()}>
-  <i class="fa fa-refresh" aria-hidden="true" />
-</button>
+{#key unique}
+  <button in:spin="{{duration: 2000}}" class="reset" on:click={() => handleReset()}>
+    <i class="fa fa-refresh" aria-hidden="true" />
+  </button>
+{/key}
 
 <style>
   .reset {
