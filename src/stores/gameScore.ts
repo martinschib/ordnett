@@ -57,19 +57,17 @@ export const gameScorePercentageReal = derived(
   ($game) => ($game.score / $game.maxScore) * 100
 );
 
-
-
 export const gameTags = [
   { tag: "Nybegynner", color: "#FEE760" },
-  { tag: "God start", color: "##A0BBED" },
-  { tag: "God start", color: "##A0BBED" },
-  { tag: "Solid", color: "#FCE875" },
+  { tag: "God start", color: "#FF6A5E" },
+  { tag: "God start", color: "#FF6A5E" },
+  { tag: "Solid", color: "#B7ACE4" },
   { tag: "Mester", color: "#FF9457" },
   { tag: "Mester", color: "#FF9457" },
-  { tag: "Utmerket", color: "#B7ACE4" },
-  { tag: "Utmerket", color: "#B7ACE4" },
-  { tag: "Geni", color: "#FF6A5E" },
-  { tag: "Geni", color: "#FF6A5E" },
+  { tag: "Utmerket", color: "#FCE875" },
+  { tag: "Utmerket", color: "#FCE875" },
+  { tag: "Geni", color: "#A0BBED" },
+  { tag: "Geni", color: "#A0BBED" },
 ];
 
 export const gameTag = derived(

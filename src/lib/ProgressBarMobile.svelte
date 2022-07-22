@@ -1,11 +1,9 @@
 <script>
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
-  import {
-    game,
-    gameScorePercentage1,
-    gameTag,
-  } from "../stores/gameScore";
+  import { game, gameScorePercentage1, gameTag } from "../stores/gameScore";
+  import Starbtn from "./starbtn.svelte";
+
 
   const progress = tweened($game.score, {
     duration: 400,
@@ -19,6 +17,9 @@
 
 <div class="progress-bar-container">
   <div class="row">
+    <div class="star">
+      <Starbtn />
+    </div>
     <div class="full">
       <div name="text" class="progress-text">
         <p>{$game.score} poeng</p>
@@ -35,6 +36,9 @@
 </div>
 
 <style type="scss">
+  .star {
+    transform: translate(0, 15px);
+  }
   .row {
     display: flex;
     flex-direction: row;
@@ -42,8 +46,7 @@
     gap: 10px;
   }
   .full {
-    width: 100%;
-
+    flex-grow: 1;
     .progress-text {
       padding: 3px 2px;
       margin: 0;
@@ -72,7 +75,6 @@
     width: 100%;
     border-radius: 15px;
     background-color: rgb(240, 240, 240);
-
   }
 
   .progress {

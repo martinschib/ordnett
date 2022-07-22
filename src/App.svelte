@@ -15,6 +15,8 @@
   import Hint from "./lib/buttons/hint.svelte";
   import Keyhandler from "./lib/keyhandler.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
+import { modal } from "./stores/modal";
+import Modal from "svelte-simple-modal";
 
   (async function () {
     const data = await retriveStartUpData();
@@ -34,6 +36,10 @@
     ordnett.set(data.wordnett.toUpperCase());
     return;
   })();
+  
+
+
+
 </script>
 
 <svelte:head>
@@ -44,12 +50,14 @@
   />
 </svelte:head>
 <main>
+  <Modal show={$modal}>
+  </Modal>
   <Keyhandler />
   <div class="header">
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
     <a style="text-decoration: none" href="https://www.aftenposten.no/spill">
-      <p>
-        Alle spill fra Aftenposten
+      <p style="margin: 0; text-align:right; color: black;">
+        Alle spill<span class="hideonphone">&nbsp;fra Aftenposten</span>
         <svg
           width="14"
           height="14"
@@ -72,12 +80,13 @@
     <Pattern />
     <Message />
     <Reset />
-    <div style="margin-bottom: 50px;">
+    <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 40px;">
       <Remove />
       <Hint />
       <Check />
     </div>
   </div>
+
   <Dropdown title="Hvordan spiller jeg?" open={true}>
     <div class="row-img">
       <img alt="Spillets regler" src="rule_1.svg" />
@@ -85,13 +94,20 @@
     </div>
 
     <p><i>Regler:</i></p>
-    <p>Let etter ord i ordnettet.</p>
-    <p> Ordene må bestå av fire eller fler bokstaver.</p>
-    <p>
-      Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
-    </p>
+    <ul style="line-height: 24px;">
+      <li>
+        Let etter ord i ordnettet
+      </li>
+      <li>
+        Ordene må bestå av fire eller fler bokstaver.
+      </li>
+      <li>
+        Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
+      </li>
+    </ul>
+
     <p><i>Hjelp:</i></p>
-    <ul>
+    <ul  style="line-height: 24px;">
       <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
       <li>Vil du ha hint? Trykk på "💡".</li>
     </ul>
@@ -114,8 +130,8 @@
 
 <style type="scss">
   @font-face {
-    font-family: Product;
-    src: url("./assets/Produkt-Semibold.woff2") format("woff");
+    font-family: ProductL;
+    src: url("./assets/Produkt.woff2") format("woff");
   }
 
   @font-face {
@@ -136,6 +152,12 @@
     font-family: Arial, Helvetica, sans-serif;
   }
 
+
+  .hideonphone {
+    @media screen and (max-width: 500px) {
+      display: none;
+    }
+  }
   h1,
   h3 {
     font-family: Product;
@@ -171,10 +193,11 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      gap: 40px;
       border-bottom: 3px solid rgb(193, 193, 193);
       padding: 10;
       margin: 10px 10px 0px 10px;
-      align-items: flex-end;
+      align-items: center;
 
       .title {
         font-size: 32px;

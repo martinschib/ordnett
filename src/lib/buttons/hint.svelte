@@ -1,6 +1,6 @@
 <script type="ts">
   import { gameMessage } from "../../stores/gameMessage";
-  import { fly } from 'svelte/transition';
+  import { fly } from "svelte/transition";
   import { game } from "../../stores/gameScore";
 
   let hint = "";
@@ -29,18 +29,16 @@
     ><img alt="hint" class="img" src="lightbulb.svg" /></button
   >
   {#key hint}
-  {#if hint}
-   
-    <p in:fly={{ y: -20 }} class="hint">Prøv: <b>{hint.toUpperCase()}</b></p>
-
-  {/if}
+    {#if hint}
+      <p in:fly={{ y: -20 }} class="hint">Prøv: <b>{hint.toUpperCase()}</b></p>
+    {/if}
   {/key}
 </span>
 
 <style>
   .hint {
     right: 0;
-   
+
     width: 150px;
     padding: 7px 0px;
     border-radius: 5px;

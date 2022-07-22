@@ -1,14 +1,25 @@
 <script>
-  import { gameTags } from "../stores/gameScore";
+  import { gameTag, gameTags } from "../stores/gameScore";
+
+
+
 
   const handleClick = () => {
-    alert("Nivåer: \n" + gameTags.map((t) => t.tag).join(", "));
+    showModal()
+    
   };
+  import { bind } from 'svelte-simple-modal';
+  import { modal } from "../stores/modal"
+import Rating from "./Rating.svelte";
+
+  const showModal = () => modal.set(bind(Rating, { message: "It's a modal!" }));
+
 </script>
 
-<button on:click={() => handleClick()}>
+<button on:click={() => handleClick()} style="background-color: {$gameTag.color}" >
   <img alt="star" class="img" src="star.svg" />
 </button>
+
 
 <style lang="scss">
   button {
@@ -21,19 +32,16 @@
     border: none;
     position: relative;
     background-color: #bfe069;
-
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
 
-    box-shadow: -2px 12px 16px -13px rgba(0, 0, 0, 0.24);
-    -webkit-box-shadow: -2px 12px 16px -13px rgba(0, 0, 0, 0.24);
-    -moz-box-shadow: -2px 12px 16px -13px rgba(0, 0, 0, 0.24);
 
     .img {
       height: 20px;
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -60%);
+      transform: translate(-50%, -50%);
       width: 20px;
     }
   }

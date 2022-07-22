@@ -28,9 +28,6 @@
     }
   };
 
-
-
-
   function spin(node, { duration }) {
 		return {
 			duration,
@@ -38,12 +35,8 @@
 				const eased = elasticOut(t);
 
 				return `
-					transform: scale(${eased}) rotate(${eased * 1080}deg);
-					color: hsl(
-						${Math.trunc(t * 360)},
-						${Math.min(100, 1000 - 1000 * t)}%,
-						${Math.min(50, 500 - 500 * t)}%
-					);`
+					transform: scale(${eased});
+          `
 			}
 		};
 	}
@@ -56,13 +49,11 @@
         <h3 class="title">
           {$game.words.length} av {$game.solutions.length} ord
         </h3>
-        {#key $gameTag.tag}
           {#if $gameScorePercentage1 > 10}
             <h3 in:spin="{{duration: 5000}}" class="tag" style="background-color:{$gameTag.color} ;">
-              Nivå: {$gameTag.tag}
+              {$gameTag.tag}
             </h3>
           {/if}
-        {/key}
       </div>
       <div class="dropdown">
         <div class="words">
@@ -141,14 +132,12 @@
     gap: 10px;
     align-items: flex-end;
   }
-
   .tag {
-    padding: 6px 20px;
-    margin: 0;
-    margin: 3px;
-    font-size: 16px;
+    padding: 4px 20px;
+    margin-bottom: 7px;
+    font-size: 14px;
     border-radius: 6px;
-    font-weight: 400;
+    font-weight: 500;
   }
   .container {
     text-align: left;
@@ -201,6 +190,7 @@
           }
         }
         .words {
+         
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
@@ -212,7 +202,8 @@
           .word {
             display: flex;
             background-color: white;
-            padding: 10px 16px;
+            padding: 8px 12px;
+            letter-spacing: 0.4px;
             border-radius: 25px;
             font-size: 14px;
           }
@@ -237,13 +228,13 @@
           padding: 10px;
           gap: 10px;
           align-items: center;
-
+          
           .word {
             display: flex;
             background-color: white;
-
+            letter-spacing: 0.4px;
             margin: 0;
-            padding: 10px 16px;
+            padding: 8px 12px;
             border-radius: 25px;
             font-size: 14px;
           }
