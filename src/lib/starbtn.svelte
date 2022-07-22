@@ -2,7 +2,6 @@
   import { gameTags } from "../stores/gameScore";
 
   const handleClick = () => {
-    console.log("Klicked");
     alert("Nivåer: \n" + gameTags.map((t) => t.tag).join(", "));
   };
 </script>
@@ -20,7 +19,7 @@
     width: 35px;
     border-radius: 50%;
     border: none;
-
+    position: relative;
     background-color: #bfe069;
 
     cursor: pointer;
@@ -31,6 +30,10 @@
 
     .img {
       height: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
       width: 20px;
     }
   }

@@ -12,7 +12,6 @@
   import { ordnett } from "./stores/ordnett";
   import { gameMessage } from "./stores/gameMessage";
   import UsedWords from "./lib/UsedWords.svelte";
-  import ProgressBarPc from "./lib/ProgressBarPC.svelte";
   import Hint from "./lib/buttons/hint.svelte";
   import Keyhandler from "./lib/keyhandler.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
@@ -79,7 +78,7 @@
       <Check />
     </div>
   </div>
-  <Dropdown title="Hvordan spiller jeg?">
+  <Dropdown title="Hvordan spiller jeg?" open={true}>
     <div class="row-img">
       <img alt="Spillets regler" src="rule_1.svg" />
       <img alt="Spillets regler" src="rule_2.svg" />
@@ -120,6 +119,11 @@
   }
 
   @font-face {
+    font-family: Product;
+    src: url("./assets/Produkt-Semibold.woff2") format("woff");
+  }
+
+  @font-face {
     font-family: Graphik light;
     src: url("./assets/Graphik.woff2") format("woff");
   }
@@ -129,7 +133,7 @@
   }
 
   :root {
-    font-family: Graphik light;
+    font-family: Arial, Helvetica, sans-serif;
   }
 
   h1,

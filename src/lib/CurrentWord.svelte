@@ -1,49 +1,40 @@
 <script lang="ts">
   import { ordnett } from "../stores/ordnett";
-  import { newWord, word } from "../stores/word";
+  import { newWord } from "../stores/word";
 
   $: isLetterInNett = (letter: string) =>
     !!$ordnett.includes(letter.toUpperCase());
 </script>
 
-<p>
-  {#each $newWord as letter, i}
-    <span
-      class="letter"
-      class:not={!letter.typed}
-      class:in={isLetterInNett(letter.letter)}>{letter.letter}</span
-    >
-  {/each}
-
-  {#if $newWord.length == 0}
+<div class="container">
+  <p>
+    {#each $newWord as letter, i}
+      <span
+        class="letter"
+        class:not={!letter.typed}
+        class:in={isLetterInNett(letter.letter)}>{letter.letter}</span
+      >
+    {/each}
     <span class="marker" />
-    Lag så mange ord du klarer..
-  {/if}
-</p>
+    {#if $newWord.length == 0}
+      
+      Lag så mange ord du klarer..
+    {/if}
+  </p>
+</div>
 
 <style type="scss">
-  p {
-    text-align: center;
-    font-weight: 700;
-    font-size: 1.3em;
-    margin-top: 40px;
-    margin-bottom: 30px;
-    padding: 15px 0px;
-    word-break: break-all;
-
-    line-height: 50px;
-    color: grey;
-    max-width: 500px;
+  .container {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgb(53, 53, 53);
     min-width: 300px;
-
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-
-    border-bottom: 2px solid black;
-
-    @media screen and (max-width: 820px) {
-      width: 100%;
+    max-width: 450px;
+    font-size: large;
+      
+    p {
+      word-break: break-all;
+      font-family: Graphik;
     }
   }
 
@@ -60,6 +51,7 @@
     text-transform: uppercase;
     color: rgb(0, 0, 0);
     font-size: 1em;
+    font-family: Graphik;
   }
 
   .letter.in {

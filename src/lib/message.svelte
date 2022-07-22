@@ -21,11 +21,9 @@
 <style type="scss">
   .cotainer {
     width: 100%;
-    background-color: aquamarine;
     position: relative;
     margin-left: auto;
     margin-right: auto;
-
     .message {
       padding: 7px 15px;
       border-radius: 15px;
@@ -35,7 +33,7 @@
       color: white;
       top: 0;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, 20%);
 
       p {
         margin: 0;

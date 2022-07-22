@@ -1,9 +1,10 @@
 <script type="ts">
   import { retriveData } from "../api/localstorage";
+	import { elasticOut } from 'svelte/easing';
 
   import { calculateWordPoints } from "../api/api";
 
-  import { game, gameTag } from "../stores/gameScore";
+  import { game, gameScorePercentage1, gameTag } from "../stores/gameScore";
   const scoreColors = ["green", "blue", "red", "yellow", "orange", "purple"];
 
   let activeSort = 0;
@@ -26,29 +27,62 @@
         return;
     }
   };
+
+
+
+
+  function spin(node, { duration }) {
+		return {
+			duration,
+			css: t => {
+				const eased = elasticOut(t);
+
+				return `
+					transform: scale(${eased}) rotate(${eased * 1080}deg);
+					color: hsl(
+						${Math.trunc(t * 360)},
+						${Math.min(100, 1000 - 1000 * t)}%,
+						${Math.min(50, 500 - 500 * t)}%
+					);`
+			}
+		};
+	}
 </script>
 
 <div class="container">
   {#if !open}
     <div class="closed">
-      <h3 class="title">
-        {$game.words.length} av {$game.solutions.length} ord
-      </h3>
+      <div class="row">
+        <h3 class="title">
+          {$game.words.length} av {$game.solutions.length} ord
+        </h3>
+        {#key $gameTag.tag}
+          {#if $gameScorePercentage1 > 10}
+            <h3 in:spin="{{duration: 5000}}" class="tag" style="background-color:{$gameTag.color} ;">
+              Nivå: {$gameTag.tag}
+            </h3>
+          {/if}
+        {/key}
+      </div>
       <div class="dropdown">
         <div class="words">
           {#if $game.words.length === 0}
-            <p style="margin: 0;"></p>
+            <p style="margin: 0; font-weight: 600; color: grey;">
+              Funnet ord kommer her ...
+            </p>
           {/if}
           {#each $game.words.length > 4 ? [...$game.words] : $game.words as word}
-            <div class="word">
-              {word.toUpperCase()} &nbsp;
+            <p class="word">
+              {word.toUpperCase()}
               <span style="color:{scoreColors[calculateWordPoints(word) % 6]}"
-                >+{calculateWordPoints(word)}</span
+                >&nbsp;+{calculateWordPoints(word)}</span
               >
-            </div>
+            </p>
           {/each}
         </div>
-        <button class="btn" on:click={() => (open = true)}> <img alt="pil ned" src="arrow_down.svg"></button>
+        <button class="btn" on:click={() => (open = true)}>
+          <img alt="pil ned" src="arrow_down.svg" /></button
+        >
       </div>
     </div>
   {:else}
@@ -80,7 +114,9 @@
               </button>
             </div>
           </div>
-          <button class="btn" on:click={() => (open = false)}> <img alt="pil opp" src="arrow_up.svg"> </button>
+          <button class="btn" on:click={() => (open = false)}>
+            <img alt="pil opp" src="arrow_up.svg" />
+          </button>
         </div>
         <div class="words">
           {#each $game.words as word}
@@ -100,6 +136,20 @@
 </div>
 
 <style type="scss">
+  .row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .tag {
+    padding: 6px 20px;
+    margin: 0;
+    margin: 3px;
+    font-size: 16px;
+    border-radius: 6px;
+    font-weight: 400;
+  }
   .container {
     text-align: left;
     max-width: 350px;
@@ -117,6 +167,7 @@
             margin: 0;
             margin-top: 10px;
             margin-left: 15px;
+            font-family: Graphik;
           }
           .btn {
             background-color: #f5f5f5;
@@ -126,7 +177,6 @@
             border-radius: 0px 10px 10px 0px;
           }
           .sorting {
-      
             margin-left: 10px;
             display: flex;
             gap: 10px;
@@ -138,7 +188,7 @@
               color: grey;
               padding: 2px 0;
               font-size: 14px;
-              
+              font-family: Graphik light;
 
               &:hover {
                 color: black;
@@ -172,26 +222,27 @@
 
     .closed {
       .title {
-        margin-bottom: 5px;
+        margin-bottom: 8px;
+        font-family: Graphik;
       }
       .dropdown {
         background-color: #f5f5f5;
-        min-height: 50px;
+        min-height: 45px;
         display: flex;
         border-radius: 10px;
         justify-content: space-between;
         .words {
           display: flex;
-          flex-direction: row;
-          flex-wrap: nowrap;
           overflow: hidden;
           padding: 10px;
-          
           gap: 10px;
+          align-items: center;
 
           .word {
             display: flex;
             background-color: white;
+
+            margin: 0;
             padding: 10px 16px;
             border-radius: 25px;
             font-size: 14px;

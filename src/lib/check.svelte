@@ -2,7 +2,7 @@
   import { pattern } from "../stores/pattern";
   import { game } from "../stores/gameScore";
   import { ordnett } from "../stores/ordnett";
-  import { newWord, word } from "../stores/word";
+  import { newWord } from "../stores/word";
   import { gameMessage } from "../stores/gameMessage";
   import { calculateWordPoints, isValidWord } from "../api/api";
   import { retriveData, storeData } from "../api/localstorage";
@@ -25,6 +25,8 @@
 
     if ($newWord.length <= 3) {
       gameMessage.newMessage("Ordet er for kort", "red");
+      pattern.reset()
+      newWord.reset()
       return;
     }
 

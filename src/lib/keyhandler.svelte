@@ -7,7 +7,7 @@
 
   import { ordnett } from "../stores/ordnett";
   import { pattern } from "../stores/pattern";
-  import { newWord, word } from "../stores/word";
+  import { newWord } from "../stores/word";
 
   export async function handleCheck() {
     if ($newWord.length <= 1) {
@@ -27,6 +27,8 @@
 
     if ($newWord.length <= 3) {
       gameMessage.newMessage("Ordet er for kort", "red");
+      pattern.reset()
+      newWord.reset()
       return;
     }
 

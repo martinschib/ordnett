@@ -4,11 +4,8 @@
   import {
     game,
     gameScorePercentage1,
-    gameScorePercentageReal,
     gameTag,
-    pointFunction,
   } from "../stores/gameScore";
-  import Starbtn from "./starbtn.svelte";
 
   const progress = tweened($game.score, {
     duration: 400,
@@ -22,7 +19,6 @@
 
 <div class="progress-bar-container">
   <div class="row">
-    <Starbtn />
     <div class="full">
       <div name="text" class="progress-text">
         <p>{$game.score} poeng</p>
@@ -49,16 +45,16 @@
     width: 100%;
 
     .progress-text {
-      padding: 3px 10px;
+      padding: 3px 2px;
       margin: 0;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      font-size: 16px;
+      font-size: 14px;
 
       p {
         margin: 3px 0px;
-        font-weight: bold;
+        font-family: Product;
       }
     }
   }

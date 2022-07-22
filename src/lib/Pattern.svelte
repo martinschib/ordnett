@@ -1,7 +1,7 @@
 <script lang="ts">
   import { pattern } from "../stores/pattern";
   import { ordnett } from "../stores/ordnett";
-  import { newWord, word } from "../stores/word";
+  import { newWord } from "../stores/word";
   import { fade } from "svelte/transition";
 
   let items = [
@@ -30,6 +30,9 @@
 
     return [{ id: (item.id + $pattern[$pattern.length - 1]) / 2 }];
   }
+  $: isLetterInNett = (letter: string) =>
+    !!$ordnett.includes(letter.toUpperCase());
+
 
   function toggleItem(item) {
     if ($pattern.includes(item.id)) {
@@ -41,6 +44,11 @@
         pattern.set([...$pattern.splice(0, lastPattern)])
         const lastWord = $newWord.map(v => v.letter).indexOf($ordnett[item.id])
         newWord.set([...$newWord.splice(0, lastWord)])
+       
+        if ($newWord.length > 0 && isLetterInNett($newWord.map(v=> v.letter)[$newWord.length - 1]) && $newWord.map(v=> !v.typed)[$newWord.length - 1]) {
+          pattern.removeLast();
+          newWord.removeLast();
+        }
       }
     } else {
       getItemBetweenNextItem(item).forEach((newItem) => {

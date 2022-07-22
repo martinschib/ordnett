@@ -76,7 +76,6 @@ const retriveStartUpData = async () => {
   try {
     const response = await fetch(`wordnetts.json`);
     const data = await response.json()
-    console.log(data[`${today}`])
     storeData("wordnett", data[`${today}`].wordnett)
     storeData("max_score", data[`${today}`].maxScore)
     storeData("max_words", data[`${today}`].maxWords)

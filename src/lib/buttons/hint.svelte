@@ -1,6 +1,6 @@
 <script type="ts">
   import { gameMessage } from "../../stores/gameMessage";
-
+  import { fly } from 'svelte/transition';
   import { game } from "../../stores/gameScore";
 
   let hint = "";
@@ -8,7 +8,6 @@
   const getHint = () => {
     let unusedWords = $game.solutions.filter((a) => !$game.words.includes(a));
     let word = unusedWords[Math.floor(Math.random() * unusedWords.length)];
-    console.log(unusedWords);
 
     if (typeof word == "undefined") {
       gameMessage.newMessage("Du har jo funnet alle ordene ;)", "blue");
@@ -29,9 +28,13 @@
   <button on:click={() => getHint()} class="check"
     ><img alt="hint" class="img" src="lightbulb.svg" /></button
   >
+  {#key hint}
   {#if hint}
-    <p class="hint">Prøv: <b>{hint.toUpperCase()}</b></p>
+   
+    <p in:fly={{ y: -20 }} class="hint">Prøv: <b>{hint.toUpperCase()}</b></p>
+
   {/if}
+  {/key}
 </span>
 
 <style>
@@ -80,5 +83,6 @@
 
   .check:active {
     border: 2px solid black;
+    background-color: yellow;
   }
 </style>

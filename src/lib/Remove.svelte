@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { newWord, word } from "../stores/word";
+  import { newWord } from "../stores/word";
 
   import { pattern } from "../stores/pattern";
   import { ordnett } from "../stores/ordnett";

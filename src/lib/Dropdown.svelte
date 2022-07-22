@@ -1,6 +1,6 @@
 <script lang="ts">
   export let title: string;
-  let open = false;
+  export let open = false;
 </script>
 
 <div class="container">

@@ -44,8 +44,6 @@ export const game = gameStore();
 
 
 export const pointFunction = (percentage: number, total: number) => {
-  console.log(total, percentage,  Math.round((Math.pow((-1*percentage), 2) + 2*percentage) * total))
-
   return Math.round(Math.pow((percentage), 2) * total)
 }
 
@@ -63,15 +61,15 @@ export const gameScorePercentageReal = derived(
 
 export const gameTags = [
   { tag: "Nybegynner", color: "#FEE760" },
-  { tag: "God start", color: "#FEE760" },
-  { tag: "Solid", color: "#FEE760" },
-  { tag: "Solid", color: "#FEE760" },
+  { tag: "God start", color: "##A0BBED" },
+  { tag: "God start", color: "##A0BBED" },
+  { tag: "Solid", color: "#FCE875" },
   { tag: "Mester", color: "#FF9457" },
   { tag: "Mester", color: "#FF9457" },
-  { tag: "Utmerket", color: "#aa9be1" },
-  { tag: "Utmerket", color: "#aa9be1" },
-  { tag: "Geni", color: "#fc6560" },
-  { tag: "Geni", color: "#fc6560" },
+  { tag: "Utmerket", color: "#B7ACE4" },
+  { tag: "Utmerket", color: "#B7ACE4" },
+  { tag: "Geni", color: "#FF6A5E" },
+  { tag: "Geni", color: "#FF6A5E" },
 ];
 
 export const gameTag = derived(
