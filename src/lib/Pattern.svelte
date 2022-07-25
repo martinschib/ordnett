@@ -186,7 +186,7 @@
   }
 
   .sircle.not {
-    border: 4px solid #FF9900;
+    border: 4px solid #74A2F8;
     z-index: -1;
   }
 

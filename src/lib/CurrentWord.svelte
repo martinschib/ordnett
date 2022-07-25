@@ -64,7 +64,7 @@
   }
 
   .letter.not {
-    background-color: #ff9900;
+    background-color: #74A2F8;
   }
 
   @keyframes blink {

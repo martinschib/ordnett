@@ -21,6 +21,7 @@
 
 <style type="scss">
   .container {
+    padding: 10px;
     text-align: left;
     max-width: 500px;
     margin-left: auto;
