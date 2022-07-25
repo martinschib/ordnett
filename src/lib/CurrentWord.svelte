@@ -18,7 +18,7 @@
     <span class="marker" />
     {#if $newWord.length == 0}
       
-      Lag så mange ord du klarer..
+      Lag ord ved å trykke eller skrive..
     {/if}
   </p>
 </div>

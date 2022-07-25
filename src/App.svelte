@@ -96,7 +96,7 @@
       <img alt="Spillets regler" src="rule_2.svg" />
     </div>
 
-    <p><i>Regler:</i></p>
+    <p><b>Regler:</b></p>
     <ul style="line-height: 24px;">
       <li>Let etter ord i ordnettet</li>
       <li>Ordene må bestå av fire eller fler bokstaver.</li>
@@ -105,15 +105,15 @@
       </li>
     </ul>
 
-    <p><i>Hjelp:</i></p>
+    <p><b>Hjelp:</b></p>
     <ul style="line-height: 24px;">
       <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
-      <li>Vil du ha hint? Trykk på "💡".</li>
+      <li>Vil du ha hint? Trykk på <img height="24px" style="transform: translate(0, 4px)" alt="hint" src="lightbulb.svg" />.</li>
     </ul>
   </Dropdown>
 
   <Dropdown title="Fasit på dagens ordnett">
-    <p>Her har du alle ordene for dagens ordnett.</p>
+    <p>Her er alle ordene for dagens ordnett. Ordene er hentet fra Norges Scrabbleforbund sin ordliste.</p>
     <ul class="list">
       {#each $game.solutions as word}
         <li>{word.toUpperCase()}</li>
@@ -121,7 +121,7 @@
     </ul>
   </Dropdown>
   <p>
-    Har du en tilbakemelding? Send en en mail til <a
+    Har du en tilbakemelding? Send en mail til <a
       href="mailto:martin.clementz@schibsted.com">oss</a
     >.
   </p>
