@@ -90,7 +90,7 @@
     </div>
   </div>
 
-  <Dropdown title="Hvordan spiller jeg?" open={true}>
+  <Dropdown title="Hvordan spiller jeg?">
     <div class="row-img">
       <img alt="Spillets regler" src="rule_1.svg" />
       <img alt="Spillets regler" src="rule_2.svg" />
