@@ -99,12 +99,16 @@
 
     <p><b>Regler:</b></p>
     <ul style="line-height: 24px;">
-      <li>Let etter ord i ordnettet</li>
-      <li>Ordene må bestå av fire eller fler bokstaver.</li>
+      <li>Du kan ikke bruke samme bokstav flere ganger</li>
+      <li>Ord med dobbel konsonant er tillatt Du kan lage ord med dobbeltkonsonant, men ikke gjenbruke bokstaven i samme ord.</li>
       <li>
-        Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
+        Ord med bobbeltkonsonant er tillatt, men du kan ikke gjenbruke bokstaver i samme ord.
+      </li>
+      <li>
+        Dobbeltkonsonant er tillatt, men du kan ikke gå tilbake til brukte bokstaver i samme ord.
       </li>
     </ul>
+
 
     <p><b>Hjelp:</b></p>
     <ul style="line-height: 24px;">
@@ -122,9 +126,7 @@
     </ul>
   </Dropdown>
   <p>
-    Har du en tilbakemelding? Send en mail til <a
-      href="mailto:martin.clementz@schibsted.com">oss</a
-    >.
+    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a href="https://docs.google.com/forms/d/1JBdcMHYIdvywAgu8enudx8c930vgLWBNKvWoB_4BpX4/edit">tre kjappe spørsmål her</a>.
   </p>
 </main>
 
