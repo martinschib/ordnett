@@ -1,5 +1,5 @@
 <script>
-  import { newWord } from "../stores/word";
+  import { word } from "../stores/word";
 
   import { pattern } from "../stores/pattern";
   import { ordnett } from "../stores/ordnett";
@@ -37,7 +37,7 @@
       return $ordnett[rotationLookup[i]];
     });
     ordnett.set(newRotatedBoard.join(""));
-    newWord.reset();
+    word.reset();
     pattern.reset();
     unique = {};
   }

@@ -7,15 +7,15 @@
 
   import { ordnett } from "../stores/ordnett";
   import { pattern } from "../stores/pattern";
-  import { newWord } from "../stores/word";
+  import { word } from "../stores/word";
 
   export async function handleCheck() {
-    if ($newWord.length <= 1) {
+    if ($word.length <= 1) {
       gameMessage.newMessage("Trykk på bokstavene for å lage ord", "blue");
       return;
     }
 
-    for (const letter of $newWord) {
+    for (const letter of $word) {
       if (!$ordnett.includes(letter.letter)) {
         gameMessage.newMessage(
           "Ordet inneholder bokstaver som ikke er i nettet",
@@ -25,35 +25,35 @@
       }
     }
 
-    if ($newWord.length <= 3) {
+    if ($word.length <= 3) {
       gameMessage.newMessage("Ordet er for kort", "red");
       pattern.reset()
-      newWord.reset()
+      word.reset()
       return;
     }
 
-    let isValid = await isValidWord($newWord.map(v => v.letter).join("").toLowerCase());
+    let isValid = await isValidWord($word.map(v => v.letter).join("").toLowerCase());
     if (!isValid) {
       pattern.reset();
-      newWord.reset();
+      word.reset();
       return;
     }
 
     game.update({
-      score: $game.score + calculateWordPoints($newWord.map(v => v.letter).join("")),
-      words: [$newWord.map(v => v.letter).join("").toLowerCase(), ...$game.words],
+      score: $game.score + calculateWordPoints($word.map(v => v.letter).join("")),
+      words: [$word.map(v => v.letter).join("").toLowerCase(), ...$game.words],
     });
     storeData("my_words", [
-      $newWord.map(v => v.letter).join("").toLowerCase(),
+      $word.map(v => v.letter).join("").toLowerCase(),
       ...retriveData("my_words"),
     ]);
 
     gameMessage.newMessage(
-      `Bra jobba +${calculateWordPoints($newWord.map(v => v.letter).join(""))} poeng!`,
+      `Bra jobba +${calculateWordPoints($word.map(v => v.letter).join(""))} poeng!`,
       "green"
     );
 
-    newWord.reset();
+    word.reset();
     pattern.reset();
 
     parent.postMessage(`numWords:${$game.words.length}`, "*");
@@ -79,17 +79,17 @@
 
   function handleKeydown(event) {
     // backspace
-    if (event.keyCode == 8 && $newWord.length - 1 > -1) {
-      if (isLetterInNett($newWord.map(v => v.letter)[$newWord.length - 1])) {
+    if (event.keyCode == 8 && $word.length - 1 > -1) {
+      if (isLetterInNett($word.map(v => v.letter)[$word.length - 1])) {
         pattern.removeLast();
-        newWord.removeLast();
+        word.removeLast();
 
-        if ($newWord.length > 0 && isLetterInNett($newWord.map(v=> v.letter)[$newWord.length - 1]) && $newWord.map(v=> !v.typed)[$newWord.length - 1]) {
+        if ($word.length > 0 && isLetterInNett($word.map(v=> v.letter)[$word.length - 1]) && $word.map(v=> !v.typed)[$word.length - 1]) {
           pattern.removeLast();
-          newWord.removeLast();
+          word.removeLast();
         }
       } else {
-        newWord.removeLast();
+        word.removeLast();
       }
     } else if (event.keyCode == 13) {
       handleCheck();
@@ -100,23 +100,23 @@
       event.keyCode === 219
     ) {
 
-      if (isLetterInNett(event.key) && $newWord.map(v => v.letter).filter(i => event.key.toUpperCase() === i).length  < 2) {
+      if (isLetterInNett(event.key) && $word.map(v => v.letter).filter(i => event.key.toUpperCase() === i).length  < 2) {
         let letterIndex = $ordnett.split("").indexOf(event.key.toUpperCase());
 
         if ($pattern.includes(letterIndex)) {
           if ($pattern[$pattern.length - 1] === letterIndex) {
             pattern.add(letterIndex);
-            newWord.add({letter: $ordnett[letterIndex], typed: true});
+            word.add({letter: $ordnett[letterIndex], typed: true});
           } 
         } else {
           getItemBetweenNextItem({ id: letterIndex }).forEach((newItem) => {
             if (letterIndex !== newItem.id && !$pattern.includes(newItem.id)) {
               pattern.add(newItem.id);
-              newWord.add({letter: $ordnett[newItem.id], typed: false });
+              word.add({letter: $ordnett[newItem.id], typed: false });
             }
           });
           pattern.add(letterIndex);
-          newWord.add({letter: $ordnett[letterIndex], typed: true});
+          word.add({letter: $ordnett[letterIndex], typed: true});
         }
       }
     }

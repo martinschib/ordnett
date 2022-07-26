@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ordnett } from "../stores/ordnett";
-  import { newWord } from "../stores/word";
+  import { word } from "../stores/word";
 
   $: isLetterInNett = (letter: string) =>
     !!$ordnett.includes(letter.toUpperCase());
@@ -8,7 +8,7 @@
 
 <div class="container">
   <p>
-    {#each $newWord as letter, i}
+    {#each $word as letter, i}
       <span
         class="letter"
         class:not={!letter.typed}
@@ -16,7 +16,7 @@
       >
     {/each}
     <span class="marker" />
-    {#if $newWord.length == 0}
+    {#if $word.length == 0}
       
       Lag ord ved å trykke eller skrive..
     {/if}

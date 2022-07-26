@@ -2,7 +2,7 @@ import { game } from "../stores/gameScore";
 import { gameMessage } from "../stores/gameMessage";
 import { retriveData, storeData } from "./localstorage";
 import { pattern } from "../stores/pattern";
-import {word, newWord} from "../stores/word"
+import {word as newWord} from "../stores/word"
 
 export function calculateWordPoints(word: string) {
   

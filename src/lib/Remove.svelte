@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { newWord } from "../stores/word";
-
+  import { word } from "../stores/word";
   import { pattern } from "../stores/pattern";
   import { ordnett } from "../stores/ordnett";
 
@@ -8,15 +7,15 @@
     !!$ordnett.includes(letter.toUpperCase());
 
   function handleRemove() {
-    if (isLetterInNett($newWord.map(v=> v.letter)[$newWord.length - 1])) {
+    if (isLetterInNett($word.map(v=> v.letter)[$word.length - 1])) {
         pattern.removeLast();
-        newWord.removeLast();
-        if ($newWord.length > 0 && isLetterInNett($newWord.map(v=> v.letter)[$newWord.length - 1]) && $newWord.map(v=> !v.typed)[$newWord.length - 1]) {
+        word.removeLast();
+        if ($word.length > 0 && isLetterInNett($word.map(v=> v.letter)[$word.length - 1]) && $word.map(v=> !v.typed)[$word.length - 1]) {
           pattern.removeLast();
-          newWord.removeLast();
+          word.removeLast();
         }
       } else {
-        newWord.removeLast();
+        word.removeLast();
       }
   }
 </script>

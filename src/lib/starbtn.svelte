@@ -1,25 +1,22 @@
 <script>
-  import { gameTag, gameTags } from "../stores/gameScore";
-
-
-
-
+  import { gameTag } from "../stores/gameScore";
+ 
+  import { bind } from "svelte-simple-modal";
+  import { modal } from "../stores/modal";
+  import Rating from "./Rating.svelte";
+  
   const handleClick = () => {
-    showModal()
-    
+    showModal();
   };
-  import { bind } from 'svelte-simple-modal';
-  import { modal } from "../stores/modal"
-import Rating from "./Rating.svelte";
-
   const showModal = () => modal.set(bind(Rating, { message: "It's a modal!" }));
-
 </script>
 
-<button on:click={() => handleClick()} style="background-color: {$gameTag.color}" >
+<button
+  on:click={() => handleClick()}
+  style="background-color: {$gameTag.color}"
+>
   <img alt="star" class="img" src="star.svg" />
 </button>
-
 
 <style lang="scss">
   button {
@@ -35,13 +32,12 @@ import Rating from "./Rating.svelte";
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
 
-
     .img {
       height: 20px;
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-48%, -55%);
       width: 20px;
     }
   }

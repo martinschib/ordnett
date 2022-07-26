@@ -92,9 +92,9 @@
 
   <Dropdown title="Hvordan spiller jeg?">
     <div class="row-img">
-      <img alt="Spillets regler" src="rule_1.svg" />
-      <img alt="Spillets regler" src="rule_2.svg" />
-      <img alt="Spillets regler" src="rule_3.svg" />
+      <img alt="Spillets regler" src="/rule_1.svg" />
+      <img alt="Spillets regler" src="/rule_2.svg" />
+      <img alt="Spillets regler" src="/rule_3.svg" />
     </div>
 
     <p><b>Regler:</b></p>

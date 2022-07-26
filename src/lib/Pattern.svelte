@@ -1,7 +1,7 @@
 <script lang="ts">
   import { pattern } from "../stores/pattern";
   import { ordnett } from "../stores/ordnett";
-  import { newWord } from "../stores/word";
+  import { word } from "../stores/word";
   import { fade } from "svelte/transition";
 
   let items = [
@@ -38,27 +38,27 @@
     if ($pattern.includes(item.id)) {
       if ($pattern[$pattern.length - 1] === item.id && $pattern.filter(i => item.id === i).length === 1) {
         pattern.add(item.id);
-        newWord.add({letter: $ordnett[item.id], typed: true});
+        word.add({letter: $ordnett[item.id], typed: true});
       } else {
         const lastPattern = $pattern.indexOf(item.id)
         pattern.set([...$pattern.splice(0, lastPattern)])
-        const lastWord = $newWord.map(v => v.letter).indexOf($ordnett[item.id])
-        newWord.set([...$newWord.splice(0, lastWord)])
+        const lastWord = $word.map(v => v.letter).indexOf($ordnett[item.id])
+        word.set([...$word.splice(0, lastWord)])
        
-        if ($newWord.length > 0 && isLetterInNett($newWord.map(v=> v.letter)[$newWord.length - 1]) && $newWord.map(v=> !v.typed)[$newWord.length - 1]) {
+        if ($word.length > 0 && isLetterInNett($word.map(v=> v.letter)[$word.length - 1]) && $word.map(v=> !v.typed)[$word.length - 1]) {
           pattern.removeLast();
-          newWord.removeLast();
+          word.removeLast();
         }
       }
     } else {
       getItemBetweenNextItem(item).forEach((newItem) => {
         if (item.id !== newItem.id && !$pattern.includes(newItem.id)) {
           pattern.add(newItem.id);
-          newWord.add({letter: $ordnett[newItem.id], typed: false});
+          word.add({letter: $ordnett[newItem.id], typed: false});
         }
       });
       pattern.add(item.id);
-      newWord.add({letter: $ordnett[item.id], typed: true});
+      word.add({letter: $ordnett[item.id], typed: true});
     }
   }
 
@@ -66,7 +66,7 @@
 
   $: isMultiple = (item) => $pattern.filter(i => i === item.id).length > 1
 
-  $: isTyped = (letter) => !!$newWord.filter(item => item.letter == letter)[0] ? $newWord.filter(item => item.letter == letter)[0].typed : true
+  $: isTyped = (letter) => !!$word.filter(item => item.letter == letter)[0] ? $word.filter(item => item.letter == letter)[0].typed : true
   
 
   $: getSirclePosition = (index: number) => {

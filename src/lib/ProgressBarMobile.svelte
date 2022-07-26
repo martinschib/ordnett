@@ -4,7 +4,6 @@
   import { game, gameScorePercentage1, gameTag } from "../stores/gameScore";
   import Starbtn from "./starbtn.svelte";
 
-
   const progress = tweened($game.score, {
     duration: 400,
     easing: cubicOut,
@@ -16,34 +15,55 @@
 </script>
 
 <div class="progress-bar-container">
+  <div class="full">
+    <div name="text" class="progress-text">
+      <p>{$game.score} poeng</p>
+      <p>{$game.maxScore} poeng</p>
+    </div>
+    <div
+      class="progress-bar"
+      style="--progress-width: {$gameScorePercentage1}%;"
+    >
+      <span class="progress" style="background-color: {$gameTag.color};" />
+    </div>
+  </div>
+
   <div class="row">
     <div class="star">
       <Starbtn />
     </div>
-    <div class="full">
-      <div name="text" class="progress-text">
-        <p>{$game.score} poeng</p>
-        <p>{$game.maxScore} poeng</p>
-      </div>
-      <div
-        class="progress-bar"
-        style="--progress-width: {$gameScorePercentage1}%;"
+    <h3 class="title">
+      {$game.words.length} av {$game.solutions.length} ord
+    </h3>
+    {#if $gameScorePercentage1 > 10}
+      <p 
+        in:spin={{ duration: 5000 }}
+        class="tag"
+        style="background-color:{$gameTag.color} ;"
       >
-        <span class="progress" style="background-color: {$gameTag.color};" />
-      </div>
-    </div>
+        {$gameTag.tag}
+      </p>
+    {/if}
   </div>
 </div>
 
 <style type="scss">
-  .star {
-    transform: translate(0, 15px);
-  }
   .row {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+
+    gap: 12px;
+    .title {
+      font-family: Graphik;
+    }
+  }
+
+  .tag {
+    padding: 4px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+    font-weight: 500;
   }
   .full {
     flex-grow: 1;

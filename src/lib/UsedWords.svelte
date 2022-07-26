@@ -46,14 +46,6 @@
   {#if !open}
     <div class="closed">
       <div class="row">
-        <h3 class="title">
-          {$game.words.length} av {$game.solutions.length} ord
-        </h3>
-          {#if $gameScorePercentage1 > 10}
-            <h3 in:spin="{{duration: 5000}}" class="tag" style="background-color:{$gameTag.color} ;">
-              {$gameTag.tag}
-            </h3>
-          {/if}
       </div>
       <div class="dropdown">
         <div class="words">
@@ -132,13 +124,6 @@
     gap: 10px;
     align-items: flex-end;
   }
-  .tag {
-    padding: 4px 20px;
-    margin-bottom: 7px;
-    font-size: 14px;
-    border-radius: 6px;
-    font-weight: 500;
-  }
   .container {
     text-align: left;
     max-width: 350px;
@@ -212,10 +197,6 @@
     }
 
     .closed {
-      .title {
-        margin-bottom: 8px;
-        font-family: Graphik;
-      }
       .dropdown {
         background-color: #f5f5f5;
         min-height: 45px;

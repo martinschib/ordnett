@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
   import {
