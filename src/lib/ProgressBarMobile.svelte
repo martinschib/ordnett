@@ -1,6 +1,6 @@
 <script>
   import { tweened } from "svelte/motion";
-  import { cubicOut } from "svelte/easing";
+  import { cubicOut, elasticOut } from "svelte/easing";
   import { game, gameScorePercentage1, gameTag } from "../stores/gameScore";
   import Starbtn from "./starbtn.svelte";
 
@@ -12,6 +12,18 @@
   game.subscribe((data) => {
     progress.set(data.score);
   });
+
+  function spin(node, { duration }) {
+    return {
+      duration,
+      css: (t) => {
+        const eased = elasticOut(t);
+
+        return `
+					transform: scale(${eased}) rotate(${eased * 1080}deg);`;
+      },
+    };
+  }
 </script>
 
 <div class="progress-bar-container">
