@@ -99,16 +99,26 @@
 
     <p><b>Regler:</b></p>
     <ul style="line-height: 24px;">
-      <li>Du kan ikke bruke samme bokstav flere ganger</li>
-      <li>Ord med dobbel konsonant er tillatt Du kan lage ord med dobbeltkonsonant, men ikke gjenbruke bokstaven i samme ord.</li>
+      <li> Let etter ord i ordnettet</li>
+      <li> Dobbeltkonsonant er tillatt</li>
       <li>
         Ord med bobbeltkonsonant er tillatt, men du kan ikke gjenbruke bokstaver i samme ord.
       </li>
       <li>
-        Dobbeltkonsonant er tillatt, men du kan ikke gå tilbake til brukte bokstaver i samme ord.
+        Ordene må bestå av fire eller fler bokstaver.
+      </li>
+      <li>
+        Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
+
+      </li>
+      <li>
+        Du kan ikke gå tilbake til brukte bokstaver i samme ord
+
       </li>
     </ul>
-
+   
+   
+    
 
     <p><b>Hjelp:</b></p>
     <ul style="line-height: 24px;">
