@@ -25,12 +25,17 @@
 
     if ($word.length <= 3) {
       gameMessage.newMessage("Ordet er for kort", "red");
-      pattern.reset()
-      word.reset()
+      pattern.reset();
+      word.reset();
       return;
     }
 
-    let isValid = await isValidWord($word.map(v => v.letter).join("").toLowerCase());
+    let isValid = await isValidWord(
+      $word
+        .map((v) => v.letter)
+        .join("")
+        .toLowerCase()
+    );
 
     if (!isValid) {
       pattern.reset();
@@ -39,22 +44,36 @@
     }
 
     game.update({
-      score: $game.score + calculateWordPoints($word.map(v => v.letter).join("")),
-      words: [$word.map(v => v.letter).join(""), ...$game.words],
+      score:
+        $game.score + calculateWordPoints($word.map((v) => v.letter).join("")),
+      words: [$word.map((v) => v.letter).join(""), ...$game.words],
     });
     storeData("my_words", [
-      $word.map(v => v.letter).join("").toLowerCase(),
+      $word
+        .map((v) => v.letter)
+        .join("")
+        .toLowerCase(),
       ...retriveData("my_words"),
     ]);
 
+    try {
+      if ($game.words.length == 3) {
+        parent.getAccountSdk().login();
+      }
+    } catch (e) {
+      console.log("...")
+    }
+
     gameMessage.newMessage(
-      `Bra jobba +${calculateWordPoints($word.map(v => v.letter).join(""))} poeng!`,
+      `Bra jobba +${calculateWordPoints(
+        $word.map((v) => v.letter).join("")
+      )} poeng!`,
       "green"
     );
 
     word.reset();
     pattern.reset();
-    parent.postMessage(`numWords:${$game.words.length}`, '*');
+    parent.postMessage(`numWords:${$game.words.length}`, "*");
   }
 </script>
 

@@ -130,7 +130,7 @@
     </ul>
   </Dropdown>
   <p>
-    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a on:click={() =>
+    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a style="color: blue; text-decoration:underline;" on:click={() =>
       (window.parent.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSd4xraVNBn6Di3mXITzSrVcGQypRlOtHtPXFwuzXiuBXnWDlg/viewform")}>fire kjappe spørsmål her</a>.
   </p>
 </main>
