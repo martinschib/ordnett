@@ -52,7 +52,6 @@
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
     <a
       style="text-decoration: none"
-      href="#"
       on:click={() =>
         (window.parent.location.href = "https://www.aftenposten.no/spill")}
     >
@@ -131,7 +130,7 @@
     </ul>
   </Dropdown>
   <p>
-    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a href="#" on:click={() =>
+    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a on:click={() =>
       (window.parent.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSd4xraVNBn6Di3mXITzSrVcGQypRlOtHtPXFwuzXiuBXnWDlg/viewform")}>fire kjappe spørsmål her</a>.
   </p>
 </main>
