@@ -50,7 +50,7 @@
   <Keyhandler />
   <div class="header">
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
-    
+    <p>{new Date().toLocaleDateString()}</p>
     <a
       style="text-decoration: none"
       href="#"
@@ -133,7 +133,7 @@
   </Dropdown>
   <p>
     Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a href="#" on:click={() =>
-      (window.parent.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSd4xraVNBn6Di3mXITzSrVcGQypRlOtHtPXFwuzXiuBXnWDlg/viewform")}>tre kjappe spørsmål her</a>.
+      (window.parent.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSd4xraVNBn6Di3mXITzSrVcGQypRlOtHtPXFwuzXiuBXnWDlg/viewform")}>fire kjappe spørsmål her</a>.
   </p>
 </main>
 
