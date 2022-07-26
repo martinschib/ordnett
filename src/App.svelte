@@ -50,7 +50,6 @@
   <Keyhandler />
   <div class="header">
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
-    <p>{new Date().toLocaleDateString()}</p>
     <a
       style="text-decoration: none"
       href="#"
