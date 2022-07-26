@@ -136,7 +136,8 @@
     </ul>
   </Dropdown>
   <p>
-    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a href="https://docs.google.com/forms/d/1JBdcMHYIdvywAgu8enudx8c930vgLWBNKvWoB_4BpX4/edit">tre kjappe spørsmål her</a>.
+    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a href="#" on:click={() =>
+      (window.parent.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSd4xraVNBn6Di3mXITzSrVcGQypRlOtHtPXFwuzXiuBXnWDlg/viewform")}>tre kjappe spørsmål her</a>.
   </p>
 </main>
 
