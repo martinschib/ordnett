@@ -98,18 +98,14 @@
     </div>
 
     <p><b>Regler:</b></p>
-    <ul style="line-height: 24px;">
+    <ul style="line-height: 22px;">
       <li> Let etter ord i ordnettet</li>
-      <li> Dobbeltkonsonant er tillatt</li>
-      <li>
-        Ord med bobbeltkonsonant er tillatt, men du kan ikke gjenbruke bokstaver i samme ord.
-      </li>
       <li>
         Ordene må bestå av fire eller fler bokstaver.
       </li>
+      <li> Dobbeltkonsonant er tillatt</li>
       <li>
         Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
-
       </li>
       <li>
         Du kan ikke gå tilbake til brukte bokstaver i samme ord
@@ -186,7 +182,7 @@
     gap: 40px;
     padding: 20px;
     img {
-      width: 100%;
+      width: 90%;
     }
   }
 
