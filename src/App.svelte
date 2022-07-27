@@ -97,32 +97,34 @@
 
     <p><b>Regler:</b></p>
     <ul style="line-height: 22px;">
-      <li> Let etter ord i ordnettet</li>
-      <li>
-        Ordene må bestå av fire eller fler bokstaver.
-      </li>
-      <li> Dobbeltkonsonant er tillatt</li>
+      <li>Let etter ord i ordnettet</li>
+      <li>Ordene må bestå av fire eller fler bokstaver.</li>
+      <li>Dobbeltkonsonant er tillatt</li>
       <li>
         Ordet må legges i en bane som ikke krysser bokstaver du ikke vil bruke.
       </li>
-      <li>
-        Du kan ikke gå tilbake til brukte bokstaver i samme ord
-
-      </li>
+      <li>Du kan ikke gå tilbake til brukte bokstaver i samme ord</li>
     </ul>
-   
-   
-    
 
     <p><b>Hjelp:</b></p>
     <ul style="line-height: 24px;">
-      <li>Gjort feil? Bruk <b>fjern</b> knappen.</li>
-      <li>Vil du ha hint? Trykk på <img height="24px" style="transform: translate(0, 4px)" alt="hint" src="lightbulb.svg" />.</li>
+      <li>Gjort feil? Bruk <b>fjern-knappen</b>.</li>
+      <li>
+        Vil du ha hint? Trykk på <img
+          height="24px"
+          style="transform: translate(0, 4px)"
+          alt="hint"
+          src="lightbulb.svg"
+        />.
+      </li>
     </ul>
   </Dropdown>
 
   <Dropdown title="Fasit på dagens ordnett">
-    <p>Her er alle ordene for dagens ordnett. Ordene er hentet fra Norges Scrabbleforbund sin ordliste.</p>
+    <p>
+      Her er alle ordene for dagens ordnett. Ordene er hentet fra Norges
+      Scrabbleforbund sin ordliste.
+    </p>
     <ul class="list">
       {#each $game.solutions as word}
         <li>{word.toUpperCase()}</li>
@@ -130,8 +132,13 @@
     </ul>
   </Dropdown>
   <p>
-    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a style="color: blue; text-decoration:underline;" on:click={() =>
-      (window.parent.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSd4xraVNBn6Di3mXITzSrVcGQypRlOtHtPXFwuzXiuBXnWDlg/viewform")}>fire kjappe spørsmål her</a>.
+    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a
+      style="color: blue; text-decoration:underline;"
+      on:click={() =>
+        (window.parent.location.href =
+          "https://docs.google.com/forms/d/e/1FAIpQLSd4xraVNBn6Di3mXITzSrVcGQypRlOtHtPXFwuzXiuBXnWDlg/viewform")}
+      >fire kjappe spørsmål her</a
+    >.
   </p>
 </main>
 
