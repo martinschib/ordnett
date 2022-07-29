@@ -57,7 +57,7 @@
   <Keyhandler />
   <div class="header">
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
-    <href
+    <a
       class="pointer"
       on:click={() =>
         (window.parent.location.href = "https://www.aftenposten.no/spill")}
@@ -77,7 +77,7 @@
           />
         </svg>
       </p>
-    </href>
+    </a>
   </div>
   <div name="content" class="content">
     <UsedWords />
