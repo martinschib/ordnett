@@ -1,14 +1,14 @@
 <script>
   import { gameTag } from "../stores/gameScore";
  
-  import { bind } from "svelte-simple-modal";
   import { modal } from "../stores/modal";
   import Rating from "./Rating.svelte";
   
   const handleClick = () => {
     showModal();
   };
-  const showModal = () => modal.set(bind(Rating, { message: "It's a modal!" }));
+  const showModal = () => modal.set(Rating);
+  
 </script>
 
 <button

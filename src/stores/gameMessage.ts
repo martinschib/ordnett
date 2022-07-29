@@ -1,8 +1,9 @@
+import type { GameMessage } from "src/types/types";
 import { writable } from "svelte/store"
 
 
 function gameMessageStore() {
-  const { subscribe, set, update } = writable({message: "", color: ""});
+  const { subscribe, set } = writable<GameMessage>({message: "", color: ""});
 
   return {
     subscribe,

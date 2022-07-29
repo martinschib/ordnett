@@ -40,8 +40,8 @@
     }
 
     game.update({
-      score: $game.score + calculateWordPoints($word.map(v => v.letter).join("")),
-      words: [$word.map(v => v.letter).join("").toLowerCase(), ...$game.words],
+      myScore: $game.myScore + calculateWordPoints($word.map(v => v.letter).join("")),
+      myWords: [$word.map(v => v.letter).join("").toLowerCase(), ...$game.myWords],
     });
     storeData("my_words", [
       $word.map(v => v.letter).join("").toLowerCase(),
@@ -56,7 +56,7 @@
     word.reset();
     pattern.reset();
 
-    parent.postMessage(`numWords:${$game.words.length}`, "*");
+    parent.postMessage(`numWords:${$game.myWords.length}`, "*");
   }
 
   $: isLetterInNett = (letter: string) =>

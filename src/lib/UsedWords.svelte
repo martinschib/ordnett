@@ -1,12 +1,11 @@
 <script type="ts">
   import { retriveData } from "../api/localstorage";
-	import { elasticOut } from 'svelte/easing';
-
   import { calculateWordPoints } from "../api/api";
+  import { game } from "../stores/gameScore";
+import type { GameDataUpdate } from "src/types/types";
 
-  import { game, gameScorePercentage1, gameTag } from "../stores/gameScore";
+  
   const scoreColors = ["green", "blue", "red", "yellow", "orange", "purple"];
-
   let activeSort = 0;
 
   let open = false;
@@ -14,32 +13,20 @@
   const sortWords = (type: 0 | 1 | 2) => {
     switch (type) {
       case 0:
-        game.update({ words: retriveData("my_words") });
+        game.update({ words: retriveData("my_words") } as GameDataUpdate );
         activeSort = 0;
         return;
       case 1:
-        game.update({ words: $game.words.sort() });
+        game.update({ words: $game.myWords.sort() } as GameDataUpdate);
         activeSort = 1;
         return;
       case 2:
-        game.update({ words: $game.words.sort((a, b) => b.length - a.length) });
+        game.update({ words: $game.myWords.sort((a, b) => b.length - a.length) } as GameDataUpdate);
         activeSort = 2;
         return;
     }
   };
 
-  function spin(node, { duration }) {
-		return {
-			duration,
-			css: t => {
-				const eased = elasticOut(t);
-
-				return `
-					transform: scale(${eased});
-          `
-			}
-		};
-	}
 </script>
 
 <div class="container">
@@ -49,12 +36,12 @@
       </div>
       <div class="dropdown">
         <div class="words">
-          {#if $game.words.length === 0}
+          {#if $game.myWords.length === 0}
             <p style="margin: 0; font-weight: 600; color: grey;">
               Funnet ord kommer her ...
             </p>
           {/if}
-          {#each $game.words.length > 4 ? [...$game.words] : $game.words as word}
+          {#each $game.myWords.length > 4 ? [...$game.myWords] : $game.myWords as word}
             <p class="word">
               {word.toUpperCase()}
               <span style="color:{scoreColors[calculateWordPoints(word) % 6]}"
@@ -74,7 +61,7 @@
         <div class="header">
           <div>
             <h3 class="title">
-              {$game.words.length} av {$game.solutions.length} ord
+              {$game.myWords.length} av {$game.solutions.length} ord
             </h3>
             <div class="sorting">
               <button
@@ -102,7 +89,7 @@
           </button>
         </div>
         <div class="words">
-          {#each $game.words as word}
+          {#each $game.myWords as word}
             <div class="word">
               {word.toUpperCase()} &nbsp;
               <span style="color:{scoreColors[calculateWordPoints(word) % 6]}"

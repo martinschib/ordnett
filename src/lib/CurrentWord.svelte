@@ -4,6 +4,7 @@
 
   $: isLetterInNett = (letter: string) =>
     !!$ordnett.includes(letter.toUpperCase());
+    
 </script>
 
 <div class="container">

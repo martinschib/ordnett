@@ -4,7 +4,11 @@
   import { word } from "../stores/word";
   import { fade } from "svelte/transition";
 
-  let items = [
+  type ItemType = {
+    id: number
+  }
+
+  let items: ItemType[] = [
     { id: 0 },
     { id: 1 },
     { id: 2 },
@@ -16,7 +20,7 @@
     { id: 8 },
   ];
 
-  function getItemBetweenNextItem(item) {
+  function getItemBetweenNextItem(item: ItemType) {
     if ($pattern.length === 0) return [];
 
     let colTo = item.id % 3;
@@ -30,11 +34,8 @@
 
     return [{ id: (item.id + $pattern[$pattern.length - 1]) / 2 }];
   }
-  $: isLetterInNett = (letter: string) =>
-    !!$ordnett.includes(letter.toUpperCase());
 
-
-  function toggleItem(item) {
+  function toggleItem(item: ItemType) {
     if ($pattern.includes(item.id)) {
       if ($pattern[$pattern.length - 1] === item.id && $pattern.filter(i => item.id === i).length === 1) {
         pattern.add(item.id);
@@ -62,11 +63,14 @@
     }
   }
 
-  $: isSelected = (item) => $pattern.includes(item.id);
+  $: isLetterInNett = (letter: string) =>
+    !!$ordnett.includes(letter.toUpperCase());
 
-  $: isMultiple = (item) => $pattern.filter(i => i === item.id).length > 1
+  $: isSelected = (item: ItemType) => $pattern.includes(item.id);
 
-  $: isTyped = (letter) => !!$word.filter(item => item.letter == letter)[0] ? $word.filter(item => item.letter == letter)[0].typed : true
+  $: isMultiple = (item: ItemType) => $pattern.filter(i => i === item.id).length > 1
+
+  $: isTyped = (letter: string) => !!$word.filter(item => item.letter == letter)[0] ? $word.filter(item => item.letter == letter)[0].typed : true
   
 
   $: getSirclePosition = (index: number) => {

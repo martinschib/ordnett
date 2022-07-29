@@ -1,60 +1,51 @@
+import type { GameData, GameDataUpdate } from "src/types/types";
 import { writable, derived } from "svelte/store";
 
 function gameStore() {
-  const { subscribe, update, set } = writable({
-    words: [],
+  const { subscribe, update } = writable<GameData>({
+    myWords: [],
     maxWords: 50,
-    score: 0,
+    myScore: 0,
     maxScore: 120,
     solutions: [],
   });
 
   return {
     subscribe,
-    update: (game) => {
+    update: (game: GameDataUpdate) => {
       update((prev) => {
         return {...prev, ...game}
       });
     },
     addWord: (word: string) => {
       update((prev) => {
-        return { ...prev, words: [...prev.words, word] };
+        return { ...prev, words: [...prev.myWords, word] };
       });
     },
-    setMaxWords: (maxWords: number) =>
+    setMaxWords: (maxWords: GameData["maxWords"]) =>
       update((prev) => {
         return { ...prev, maxWords: maxWords };
       }),
-    setMaxScore: (maxScore: number) => 
+    setMaxScore: (maxScore: GameData["maxScore"]) => 
       update((prev) => {
         return {...prev, maxScore: maxScore}
       }),
-    setScore: (score: number) => 
+    setScore: (score: GameData["myScore"]) => 
       update((prev) => {
         return {...prev, score: score}
       }),
     addScore: (score: number) => 
       update((prev) => {
-        return {...prev, score: prev.score + score}
+        return {...prev, score: prev.myScore + score}
       }),
   }
 }
 
 export const game = gameStore();
 
-
-export const pointFunction = (percentage: number, total: number) => {
-  return Math.round(Math.pow((percentage), 2) * total)
-}
-
-export const gameScorePercentage1 = derived(
+export const gameScorePercentageAdjusted = derived(
   game,
-  ($game) => (0.9875184*($game.score / $game.maxScore)**0.465751)*100
-);
-
-export const gameScorePercentageReal = derived(
-  game,
-  ($game) => ($game.score / $game.maxScore) * 100
+  ($game) => (0.9875184*($game.myScore / $game.maxScore)**0.465751)*100
 );
 
 export const gameTags = [
@@ -72,6 +63,6 @@ export const gameTags = [
 
 export const gameTag = derived(
   game,
-  ($game) => gameTags[parseInt(((0.9875184*($game.score / $game.maxScore)**0.465751)*100).toString()).toString()[0]]
+  ($game) => gameTags[parseInt(((0.9875184*($game.myScore / $game.maxScore)**0.465751)*100).toString()).toString()[0]]
 );
 

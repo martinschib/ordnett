@@ -1,23 +1,28 @@
 <script lang="ts">
-  import Check from "./lib/check.svelte";
+  import Check from "./lib/CheckBtn.svelte";
   import CurrentWord from "./lib/CurrentWord.svelte";
   import Pattern from "./lib/Pattern.svelte";
-  import ProgressBarMobile from "./lib/ProgressBarMobile.svelte";
-  import Remove from "./lib/Remove.svelte";
-  import Reset from "./lib/Reset.svelte";
-  import Message from "./lib/message.svelte";
+  import ProgressBarMobile from "./lib/ProgressBar.svelte";
+  import Remove from "./lib/RemoveBtn.svelte";
+  import Rotate from "./lib/RotateBtn.svelte";
+  import Message from "./lib/Message.svelte";
+  import UsedWords from "./lib/UsedWords.svelte";
+  import Hint from "./lib/HintBtn.svelte";
+  import Keyhandler from "./lib/keyhandler.svelte";
+  import Dropdown from "./lib/Dropdown.svelte"
+
 
   import { getMaxPoints, retriveStartUpData } from "./api/api";
+
+  import { modal } from "./stores/modal";
   import { game } from "./stores/gameScore";
   import { ordnett } from "./stores/ordnett";
   import { gameMessage } from "./stores/gameMessage";
-  import UsedWords from "./lib/UsedWords.svelte";
-  import Hint from "./lib/buttons/hint.svelte";
-  import Keyhandler from "./lib/keyhandler.svelte";
-  import Dropdown from "./lib/Dropdown.svelte";
-  import { modal } from "./stores/modal";
+
   import Modal from "svelte-simple-modal";
 
+
+  // startup function that initilizes the game with data.
   (async function () {
     const data = await retriveStartUpData();
     if (!data) {
@@ -26,9 +31,9 @@
     }
 
     game.update({
-      words: data.myWords,
+      myWords: data.myWords,
       maxWords: data.maxWords,
-      score: getMaxPoints(data.myWords),
+      myScore: getMaxPoints(data.myWords),
       maxScore: data.maxScore,
       solutions: data.solutions,
     });
@@ -36,6 +41,7 @@
     ordnett.set(data.wordnett.toUpperCase());
     return;
   })();
+
 </script>
 
 <svelte:head>
@@ -45,13 +51,14 @@
     type="text/css"
   />
 </svelte:head>
+
 <main>
   <Modal show={$modal} />
   <Keyhandler />
   <div class="header">
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
-    <a
-      style="text-decoration: none"
+    <href
+      class="pointer"
       on:click={() =>
         (window.parent.location.href = "https://www.aftenposten.no/spill")}
     >
@@ -70,7 +77,7 @@
           />
         </svg>
       </p>
-    </a>
+    </href>
   </div>
   <div name="content" class="content">
     <UsedWords />
@@ -78,7 +85,7 @@
     <CurrentWord />
     <Pattern />
     <Message />
-    <Reset />
+    <Rotate />
     <div
       style="display:flex; align-items:center; gap: 10px; margin-bottom: 40px;"
     >
@@ -132,12 +139,12 @@
     </ul>
   </Dropdown>
   <p>
-    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <a
-      style="color: blue; text-decoration:underline;"
+    Hva synes du om spillet? Vi ønsker å forbedre oss! Svar på <href
+      class="link pointer"
       on:click={() =>
         (window.parent.location.href =
           "https://docs.google.com/forms/d/e/1FAIpQLSd4xraVNBn6Di3mXITzSrVcGQypRlOtHtPXFwuzXiuBXnWDlg/viewform")}
-      >fire kjappe spørsmål her</a
+      >fire kjappe spørsmål her</href
     >.
   </p>
 </main>
@@ -162,6 +169,14 @@
     src: url("./assets/Graphik-Semibold.woff") format("woff");
   }
 
+  .link {
+    text-decoration: underline;
+    color: blue;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+
   :root {
     font-family: Arial, Helvetica, sans-serif;
   }
@@ -171,10 +186,9 @@
       display: none;
     }
   }
-  h1,
-  h3 {
+  h1 {
     font-family: Product;
-    letter-spacing: 1.1px;
+    letter-spacing: -1px;
   }
 
   .list {
@@ -189,11 +203,6 @@
     img {
       width: 90%;
     }
-  }
-
-  h3 {
-    font-size: 24px;
-    font-weight: bolder;
   }
   main {
     text-align: center;
@@ -214,17 +223,13 @@
         font-size: 32px;
       }
     }
-  }
 
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-    padding: 10px;
-  }
-  .howto {
-    max-width: 500px;
-    text-align: left;
+      padding: 10px;
+    }
   }
 </style>

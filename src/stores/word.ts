@@ -1,11 +1,12 @@
+import type { MyLetter, MyWord } from "src/types/types";
 import { writable } from "svelte/store";
 
 function wordStore() {
-  const { subscribe, set, update } = writable<{letter: string, typed: boolean}[]>([]);
+  const { subscribe, set, update } = writable<MyWord>([]);
 
   return {
     subscribe,
-    add: (letter: {letter: string, typed: boolean}) => {
+    add: (letter: MyLetter) => {
       update((prev) => {
         return [...prev, letter];
       });
@@ -20,7 +21,7 @@ function wordStore() {
         return prev.slice(index, 1);
       });
     },
-    set: (newWord: {letter: string, typed: boolean}[]) => set(newWord),
+    set: (newWord: MyWord) => set(newWord),
     reset: () => set([]),
   };
 }
