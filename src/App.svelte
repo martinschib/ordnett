@@ -42,6 +42,9 @@
     return;
   })();
 
+
+  $: isWordUsed = (word: string) => !!$game.myWords.includes(word)
+
 </script>
 
 <svelte:head>
@@ -57,11 +60,15 @@
   <Keyhandler />
   <div class="header">
     <h1 class="title" style="margin: 0;">Ordnettet</h1>
+    <span style="font-size: 14px;">
+    {new Date().toLocaleDateString()}
+  </span>
     <a
       class="pointer"
       on:click={() =>
         (window.parent.location.href = "https://www.aftenposten.no/spill")}
     >
+    
       <p style="margin: 0; text-align:right; color: black;">
         Alle spill<span class="hideonphone">&nbsp;fra Aftenposten</span>
         <svg
@@ -134,7 +141,7 @@
     </p>
     <ul class="list">
       {#each $game.solutions as word}
-        <li>{word.toUpperCase()}</li>
+        <li class:used={isWordUsed(word)}>{word.toUpperCase()}</li>
       {/each}
     </ul>
   </Dropdown>
@@ -193,6 +200,10 @@
 
   .list {
     line-height: 26px;
+
+    .used {
+      text-decoration: line-through;
+    }
   }
 
   .row-img {
@@ -213,7 +224,6 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      gap: 40px;
       border-bottom: 3px solid rgb(193, 193, 193);
       padding: 10;
       margin: 10px 10px 0px 10px;

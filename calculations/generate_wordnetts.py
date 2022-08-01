@@ -3,10 +3,12 @@ import re
 import random
 import string
 import json
+import threading
 
 
 words = []
-with open("./calculations/validSolutions.txt") as f:
+
+with open("./calculations/nsf2021.txt") as f:
     data = f.read().split("\n")
     for word in data:
         words.append(word)
@@ -117,27 +119,55 @@ def getMaxPoints(l):
         p += len(s)
     return p
 
+def isAllLettersUsed(n, s):
+    for l in n:
+        if not isLetterInSolutions(l, s):
+            return False
+    return True
+        
+
+def isLetterInSolutions(l, solutions):
+    for si in range(len(solutions)):
+        if l in solutions[si]:
+            return True
+    return False
+
+def worker(type):
+    o=0
+    for i in range(100):
+        n = getRandomString()
+        v = getValidWords(n)
+        print(i)
+        if not isAllLettersUsed(n, v):
+            continue
+        if len(v) > 49:
+            continue
+        if len(v) < 24:
+            continue
+        m = getMaxPoints(v)
+        netts[f"{o}-{type}"] = {
+            "wordnett": n,
+            "solutions": v,
+            "maxWords": len(v),
+            "maxScore": getMaxPoints(v)
+        }
+        print(f"index:{o}, maxWords: {len(v)}, nett: {n}")
+        o+=1
 
 if __name__ == "__main__":
-    with open("my_generated_wordnetts.json", "w") as outfile:
-        o=0
+    with open("./calculations/my_generated_wordnetts.json", "w") as outfile:
         netts = {}
-        for i in range(500):
-            n = getRandomString()
-            v = getValidWords(n)
-            if len(v) > 49:
-                continue
-            if len(v) < 24:
-                continue
-            m = getMaxPoints(v)
-            netts[f"{o}"] = {
-                "wordnett": n,
-                "solutions": v,
-                "maxWords": len(v),
-                "maxScore": getMaxPoints(v)
-            }
-            print(f"index:{o}, maxWords: {len(v)}, nett: {n}")
-            o+=1
+        t1 = threading.Thread( target=worker, args=("a") )
+        t2 = threading.Thread( target=worker, args=("b") )
+        t3 = threading.Thread( target=worker, args=("c") )
+
+        t1.start()
+        t2.start()
+        t3.start()
+
+        t1.join()
+        t2.join()
+        t3.join()
 
         json.dump(netts, outfile)
 
