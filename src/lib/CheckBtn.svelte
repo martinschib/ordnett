@@ -48,7 +48,7 @@
     game.update({
       myScore:
         $game.myScore + calculateWordPoints($word.map((v) => v.letter).join("")),
-      myWords: [$word.map((v) => v.letter).join(""), ...$game.myWords],
+      myWords: [$word.map((v) => v.letter).join("").toLowerCase(), ...$game.myWords],
     });
 
     storeData("my_words", [
