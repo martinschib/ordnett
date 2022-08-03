@@ -48,6 +48,7 @@
         $game.myScore + calculateWordPoints($word.map((v) => v.letter).join("")),
       myWords: [$word.map((v) => v.letter).join(""), ...$game.myWords],
     });
+
     storeData("my_words", [
       $word
         .map((v) => v.letter)

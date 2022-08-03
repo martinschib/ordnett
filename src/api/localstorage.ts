@@ -1,6 +1,11 @@
 export function storeData(key: string, data: any) {
     const STORAGE_KEY = `APP-${key}`;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {
+      return null
+    }
+    
   }
   
   export function retriveData(key: string) {
