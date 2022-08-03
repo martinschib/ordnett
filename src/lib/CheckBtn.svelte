@@ -34,7 +34,9 @@
       $word
         .map((v) => v.letter)
         .join("")
-        .toLowerCase()
+        .toLowerCase(),
+        $game.solutions,
+        $game.myWords
     );
 
     if (!isValid) {

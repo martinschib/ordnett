@@ -30,10 +30,7 @@ function getDayOfYear(date = new Date()) {
   return differenceInDays;
 }
 
-const isValidWord = (word: string) => {
-  const solutions = retriveData("solutions");
-  const myWords = retriveData("my_words");
-
+const isValidWord = (word: string, solutions, myWords) => {
   if (!solutions) {
     gameMessage.newMessage("Ops!.. Noe har gått galt.", "red");
     return false;
