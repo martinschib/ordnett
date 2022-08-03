@@ -57,8 +57,6 @@
       ...retriveData("my_words"),
     ]);
 
-
-
     gameMessage.newMessage(
       `Bra jobba +${calculateWordPoints(
         $word.map((v) => v.letter).join("")
@@ -68,7 +66,6 @@
 
     word.reset();
     pattern.reset();
-    parent.postMessage(`numWords:${$game.myWords.length}`, "*");
   }
 </script>
 

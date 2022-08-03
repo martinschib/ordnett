@@ -32,7 +32,7 @@
       return;
     }
 
-    let isValid = await isValidWord($word.map(v => v.letter).join("").toLowerCase());
+    let isValid = await isValidWord($word.map(v => v.letter).join("").toLowerCase(), $game.solutions, $game.myWords);
     if (!isValid) {
       pattern.reset();
       word.reset();
@@ -56,7 +56,6 @@
     word.reset();
     pattern.reset();
 
-    parent.postMessage(`numWords:${$game.myWords.length}`, "*");
   }
 
   $: isLetterInNett = (letter: string) =>
